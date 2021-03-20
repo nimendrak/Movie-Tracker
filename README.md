@@ -1,5 +1,5 @@
 # Movie-Tracker
-This was a Native Android Mobile Application which was developed as a Vehicle Identifying Game in IIT-L5-SEM2.
+This was a Native Android Mobile Application which was developed as a Movie Tracker in IIT-L5-SEM2.
 
 - Vehicle Identifying Game has following features :
 
