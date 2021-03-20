@@ -1,3 +1,66 @@
 <resources>
-    <string name="app_name">MAD_CWK2</string>
+    <string name="app_name">CWK1</string>
+
+    <!-- Main Activity -->
+    <string name="main_activity_title">Vehicle Identifying Game &#xD;(MAD CWK01)</string>
+    <string name="button_identify_car_make_text">Identify the Car Make</string>
+    <string name="button_identify_car_image_text">Identify the Car Image</string>
+    <string name="button_hint_text">Hints</string>
+    <string name="button_advanced_level_text">Advanced Level</string>
+
+    <string name="imageView_bg_description">Main background image</string>
+    <string name="imageView_car_icon_description">Car icon of the main screen</string>
+
+    <!-- Car make Activity -->
+    <string name="button_identify_text_1">Identify</string>
+    <string name="button_identify_text_2">Next</string>
+
+    <string name="textView_car_id_1">45</string>
+    <string name="textView_car_id_2">/45</string>
+    <string name="textView_car_logo_description">Car logo</string>
+    <string name="textView_correct_text">CORRECT!</string>
+    <string name="textView_wrong_text">WRONG!</string>
+    <string name="textView_car_maker_text">Correct car maker is</string>
+    <string name="textView_correct_car_maker">Audi</string>
+
+    <string-array name="array_car_makes">
+        <item>Select a Manufacturer</item>
+        <item>Audi</item>
+        <item>BMW</item>
+        <item>Jaguar</item>
+        <item>Ferrari</item>
+        <item>Lamborghini</item>
+        <item>Mercedes</item>
+        <item>Mitsubishi</item>
+        <item>Porsche</item>
+        <item>Tesla</item>
+    </string-array>
+
+    <!-- Car image Activity -->
+    <string name="imageView_car_description">Car1 - Audi A4</string>
+    <string name="imageView_random_car_image_des">Random car image</string>
+    <string name="textView_car_maker">TextView</string>
+    <string name="textView_img1_index">01</string>
+    <string name="textView_img2_index">02</string>
+    <string name="textView_img3_index">03</string>
+    <string name="textView_image1">Image - 01</string>
+    <string name="textView_image2">Image - 02</string>
+    <string name="textView_image3">Image - 03</string>
+    <string name="car_make_emblem_text">Car Make Emblem</string>
+    <string name="button_submit_text">Submit</string>
+    <string name="editText_input_char_text">Input char</string>
+    <string name="textview_attempts_left_text">Attempt(s) Left</string>
+    <string name="textview_attempts">03</string>
+
+    <string name="textview_advanced_level_title">Advanced Level</string>
+    <string name="textview_answers_label">answer(s) are</string>
+    <string name="textview_correct_answer_count">03/03</string>
+    <string name="score">00</string>
+    <string name="textview_score_label">Score</string>
+    <string name="editext_01_car_make_hint">Car Make - #1</string>
+    <string name="editext_02_car_make_hint">Car Make - #2</string>
+    <string name="editext_03_car_make_hint">Car Make - #3</string>
+    <string name="textview_switch_label">Turn on Switch for a Challenge</string>
+    <string name="textview_timer">00:00</string>
+
 </resources>
