@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RegisterMovie"></activity>
+        <activity android:name=".Ratings"></activity>
+        <activity android:name=".Search" />
+        <activity android:name=".FavoriteMovies" />
+        <activity android:name=".EditMovies" />
+        <activity android:name=".DisplayMovies" />
+        <activity android:name=".RegisterMovie" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

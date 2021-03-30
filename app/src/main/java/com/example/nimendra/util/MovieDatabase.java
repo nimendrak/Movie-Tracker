@@ -34,7 +34,7 @@ class MovieDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + DB_TABLE + " (emp_id text primary key, emp_name text, emp_address text, emp_age text, emp_position text);");
+        db.execSQL("create table " + DB_TABLE + " (mov_id text primary key, mov_title text, mov_year text, mov_director text, mov_ratings text, mov_reviews text);");
         Log.i("Database", "Table Created");
     }
 
@@ -44,10 +44,11 @@ class MovieDatabase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insertData(String emp_id, String emp_name, String emp_address, String emp_age, String emp_position) {
+    public void insertData(String mov_id, String mov_title, String mov_year, String mov_director, String mov_cast, String mov_ratings, String mov_reviews) {
         try {
             myDb = getWritableDatabase();
-            myDb.execSQL("insert into " + DB_TABLE + " (emp_id, emp_name, emp_address, emp_age, emp_position) values ('" + emp_id + "' , '" + emp_name + "' ,'" + emp_address + "' , '" + emp_age + "' , '" + emp_position + "');");
+            myDb.execSQL("insert into " + DB_TABLE + " (mov_id,mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews) values ('" + mov_id + "' , '"
+                    + mov_title + "' , '" + mov_year + "' ,'" + mov_director + "' , '" + mov_cast + "' , '" + mov_ratings + "' , '" + mov_reviews + "');");
             Toast.makeText(ctx, "Data Saved", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(ctx, "This ID is already exists", Toast.LENGTH_SHORT).show();
@@ -65,11 +66,15 @@ class MovieDatabase extends SQLiteOpenHelper {
             String s3 = cr.getString(2);
             String s4 = cr.getString(3);
             String s5 = cr.getString(4);
+            String s6 = cr.getString(5);
+            String s7 = cr.getString(6);
             str.append(s1).append(": ");
             str.append(s2).append(": ");
             str.append(s3).append(": ");
             str.append(s4).append(": ");
-            str.append(s5).append("\n");
+            str.append(s5).append(": ");
+            str.append(s6).append(": ");
+            str.append(s7).append("\n");
         }
 
         return str.toString();
@@ -78,7 +83,7 @@ class MovieDatabase extends SQLiteOpenHelper {
     public void delete(String id) {
         try {
             myDb = getWritableDatabase();
-            myDb.delete(DB_TABLE, "emp_id=?", new String[]{id});
+            myDb.delete(DB_TABLE, "mov_id=?", new String[]{id});
             Toast.makeText(ctx, "Deleted", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(ctx, "Could not find ID", Toast.LENGTH_SHORT).show();
