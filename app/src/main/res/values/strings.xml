@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">CWK1</string>
+    <string name="app_name">Movie Tracker</string>
 
     <!-- Main Activity -->
-    <string name="main_activity_title">Movie Tracker &#xD; &#xD;(MAD CWK2)</string>
+    <string name="main_activity_title">Movie Tracker</string>
     <string name="register_movie_btn_text">Register Movie</string>
     <string name="display_movies_btn_text">Display Movies</string>
     <string name="favourites_btn_text">Favorites</string>
@@ -10,57 +10,25 @@
     <string name="search_btn_text">Search</string>
     <string name="ratings_btn_text">Ratings</string>
 
-    <!-- Car make Activity -->
-    <string name="button_identify_text_1">Identify</string>
-    <string name="button_identify_text_2">Next</string>
 
-    <string name="textView_car_id_1">45</string>
-    <string name="textView_car_id_2">/45</string>
-    <string name="textView_car_logo_description">Car logo</string>
-    <string name="textView_correct_text">CORRECT!</string>
-    <string name="textView_wrong_text">WRONG!</string>
-    <string name="textView_car_maker_text">Correct car maker is</string>
-    <string name="textView_correct_car_maker">Audi</string>
+    <!-- Register Movie -->
+    <string name="register_movie_textView">Register Movie</string>
+    <string name="title_textView">Title of the Movie</string>
+    <string name="year_textView">Year of the Movie</string>
+    <string name="director_textView">Director of the Movie</string>
+    <string name="ratings_textView">Ratings</string>
+    <string name="reviews_textView">Reviews</string>
 
-    <string-array name="array_car_makes">
-        <item>Select a Manufacturer</item>
-        <item>Audi</item>
-        <item>BMW</item>
-        <item>Jaguar</item>
-        <item>Ferrari</item>
-        <item>Lamborghini</item>
-        <item>Mercedes</item>
-        <item>Mitsubishi</item>
-        <item>Porsche</item>
-        <item>Tesla</item>
-    </string-array>
-
-    <!-- Car image Activity -->
-    <string name="imageView_car_description">Car1 - Audi A4</string>
-    <string name="imageView_random_car_image_des">Random car image</string>
-    <string name="textView_car_maker">TextView</string>
-    <string name="textView_img1_index">01</string>
-    <string name="textView_img2_index">02</string>
-    <string name="textView_img3_index">03</string>
-    <string name="textView_image1">Image - 01</string>
-    <string name="textView_image2">Image - 02</string>
-    <string name="textView_image3">Image - 03</string>
-    <string name="car_make_emblem_text">Car Make Emblem</string>
-    <string name="button_submit_text">Submit</string>
-    <string name="editText_input_char_text">Input char</string>
-    <string name="textview_attempts_left_text">Attempt(s) Left</string>
-    <string name="textview_attempts">03</string>
-
-    <string name="textview_advanced_level_title">Advanced Level</string>
-    <string name="textview_answers_label">answer(s) are</string>
-    <string name="textview_correct_answer_count">03/03</string>
-    <string name="score">00</string>
-    <string name="textview_score_label">Score</string>
-    <string name="editext_01_car_make_hint">Car Make - #1</string>
-    <string name="editext_02_car_make_hint">Car Make - #2</string>
-    <string name="editext_03_car_make_hint">Car Make - #3</string>
-    <string name="textview_switch_label">Turn on Switch for a Challenge</string>
-    <string name="textview_timer">00:00</string>
-
+    <string name="title_hint">Title</string>
+    <string name="director_hint">Director</string>
+    <string name="year_hint">Year</string>
+    <string name="cast_textView">List of Actors/ Actress</string>
+    <string name="cast_hint">Cast of the Movie</string>
+    <string name="ratings_hint">Ratings out of 10</string>
+    <string name="review_hint">Review</string>
+    <string name="save_btnLabel">Save</string>
+    <string name="reset_btnLabel">Reset</string>
+    <string name="movie_indexLabel">Movie - #</string>
+    <string name="movie_index">001</string>
 
 </resources>

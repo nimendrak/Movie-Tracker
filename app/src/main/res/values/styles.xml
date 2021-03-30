@@ -1,12 +1,10 @@
 <resources>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#FFC542</item>
         <item name="colorPrimaryDark">#FC9047</item>
         <item name="colorAccent">#EA783F</item>
-
         <item name="android:textAllCaps">false</item>
     </style>
 
