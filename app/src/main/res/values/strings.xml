@@ -2,14 +2,13 @@
     <string name="app_name">CWK1</string>
 
     <!-- Main Activity -->
-    <string name="main_activity_title">Vehicle Identifying Game &#xD;(MAD CWK01)</string>
-    <string name="button_identify_car_make_text">Identify the Car Make</string>
-    <string name="button_identify_car_image_text">Identify the Car Image</string>
-    <string name="button_hint_text">Hints</string>
-    <string name="button_advanced_level_text">Advanced Level</string>
-
-    <string name="imageView_bg_description">Main background image</string>
-    <string name="imageView_car_icon_description">Car icon of the main screen</string>
+    <string name="main_activity_title">Movie Tracker &#xD; &#xD;(MAD CWK2)</string>
+    <string name="register_movie_btn_text">Register Movie</string>
+    <string name="display_movies_btn_text">Display Movies</string>
+    <string name="favourites_btn_text">Favorites</string>
+    <string name="edit_movies_btn_text">Edit Movies</string>
+    <string name="search_btn_text">Search</string>
+    <string name="ratings_btn_text">Ratings</string>
 
     <!-- Car make Activity -->
     <string name="button_identify_text_1">Identify</string>
@@ -62,5 +61,6 @@
     <string name="editext_03_car_make_hint">Car Make - #3</string>
     <string name="textview_switch_label">Turn on Switch for a Challenge</string>
     <string name="textview_timer">00:00</string>
+
 
 </resources>
