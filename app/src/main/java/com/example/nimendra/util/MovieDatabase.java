@@ -18,6 +18,8 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class MovieDatabase extends SQLiteOpenHelper {
@@ -58,7 +60,6 @@ public class MovieDatabase extends SQLiteOpenHelper {
     }
 
     public void insertData(String title, int year, String director, String cast, int ratings, String reviews, View view) {
-
         try {
             myDb = getWritableDatabase();
             myDb.execSQL("insert into " + DB_TABLE + " (mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews, isFavourite) values ('" + title + "' , '" + year + "' , '" + director + "' , '" + cast + "' , '" + ratings + "' , '" + reviews + "' , '" + 0 + "');");
@@ -85,7 +86,32 @@ public class MovieDatabase extends SQLiteOpenHelper {
         cursor.close();
         myDb.close();
 
+        // Sorting the movies alphabetically
+        Collections.sort(movieTitles);
         return movieTitles;
+    }
+
+    public List<String> retrieveFavoriteData() {
+        myDb = getReadableDatabase();
+
+        String query = "SELECT * FROM " + DB_TABLE + " where isFavourite='" + 1 + "'";
+        Cursor cursor = myDb.rawQuery(query, null);
+
+//        Cursor cursor = myDb.rawQuery("Select * from " + DB_TABLE, null);
+
+        List<String> favoriteMovieList = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            favoriteMovieList.add(cursor.getString(cursor.getColumnIndex("mov_title")));
+            while (cursor.moveToNext()) {
+                favoriteMovieList.add(cursor.getString(cursor.getColumnIndex("mov_title")));
+            }
+        }
+        cursor.close();
+        myDb.close();
+
+        // Sorting the movies alphabetically
+        Collections.sort(favoriteMovieList);
+        return favoriteMovieList;
     }
 
     public void delete(String title) {

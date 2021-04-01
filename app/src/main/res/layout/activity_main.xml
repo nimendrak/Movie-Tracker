@@ -29,6 +29,7 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/button_ripple_effect"
         android:text="@string/favourites_btn_text"
+        android:onClick="launchFavorites"
         android:textColor="#2E2E2E"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"

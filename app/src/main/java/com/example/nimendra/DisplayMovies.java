@@ -79,10 +79,6 @@ public class DisplayMovies extends AppCompatActivity {
         ListView listView = findViewById(R.id.list_view);
         listView.removeAllViewsInLayout();
 
-//        checkboxesStatus.clear();
-//        movieTitles.clear();
-//        favMoviesTitles.clear();
-
         Log.i(LOG_TAG, "Destroyed");
     }
 

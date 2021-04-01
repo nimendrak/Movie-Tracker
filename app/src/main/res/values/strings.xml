@@ -36,4 +36,9 @@
     <string name="display_movies_title_textView">Display Movies</string>
     <string name="add_btnLabel">Add To Favorites</string>
 
+
+    <!--  Favorite Movies  -->
+    <string name="save_fav_btnLabel">Save</string>
+    <string name="favorites_movies_title">Favorites Movies</string>
+
 </resources>
