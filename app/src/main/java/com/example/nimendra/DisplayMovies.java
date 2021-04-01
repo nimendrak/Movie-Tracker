@@ -128,13 +128,8 @@ public class DisplayMovies extends AppCompatActivity {
     }
 
     public void AddToFav(View view) {
-        Log.i("CheckboxesStatus", String.valueOf(checkboxesStatus));
-        Log.i("MovieTitles", String.valueOf(movieTitles));
-
         movieDatabase.addToFavorites(findViewById(R.id.display_movie), favMoviesTitles);
         movieDatabase.showAll();
-
-        Log.i("FavMovieTitles", String.valueOf(favMoviesTitles));
     }
 
 

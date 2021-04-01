@@ -26,7 +26,7 @@ public class MovieDatabase extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "MovieDatabase";
     private static final String DB_TABLE = "movies";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
 
     Snackbar snackbar;
 
@@ -121,7 +121,11 @@ public class MovieDatabase extends SQLiteOpenHelper {
 
         ContentValues cv = new ContentValues();
         cv.put("isFavourite", true);
+
         try {
+            // Set all isFavorites to false and update accordingly
+            myDb.execSQL("UPDATE movies SET isFavourite = 0");
+
             for (int i = 0; i < favMovieList.size(); i++) {
                 myDb.update(DB_TABLE, cv, "mov_title = ?", new String[]{favMovieList.get(i)});
             }
