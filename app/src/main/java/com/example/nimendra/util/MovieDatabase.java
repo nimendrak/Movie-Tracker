@@ -4,10 +4,14 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MovieDatabase extends SQLiteOpenHelper {
     @SuppressLint("StaticFieldLeak")
@@ -54,27 +58,21 @@ public class MovieDatabase extends SQLiteOpenHelper {
         }
     }
 
-    public String getAll() {
+    public List<String> retrieveData() {
         myDb = getReadableDatabase();
-        Cursor cr = myDb.rawQuery("Select * from " + DB_TABLE, null);
-        StringBuilder str = new StringBuilder();
+        Cursor cursor = myDb.rawQuery("Select * from " + DB_TABLE, null);
 
-        while (cr.moveToNext()) {
-            String s1 = cr.getString(0);
-            String s2 = cr.getString(1);
-            String s3 = cr.getString(2);
-            String s4 = cr.getString(3);
-            String s5 = cr.getString(4);
-            String s6 = cr.getString(5);
-            str.append(s1).append(": ");
-            str.append(s2).append(": ");
-            str.append(s3).append(": ");
-            str.append(s4).append(": ");
-            str.append(s5).append(": ");
-            str.append(s6).append("\n");
+        List<String> movieTitles = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            movieTitles.add(cursor.getString(cursor.getColumnIndex("mov_title")));
+            while (cursor.moveToNext()) {
+                movieTitles.add(cursor.getString(cursor.getColumnIndex("mov_title")));
+            }
         }
+        cursor.close();
+        myDb.close();
 
-        return str.toString();
+        return movieTitles;
     }
 
     public void delete(String title) {
@@ -103,6 +101,18 @@ public class MovieDatabase extends SQLiteOpenHelper {
         } catch (Exception e) {
             Toast.makeText(context, "Could not find ID", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void addToFave() {
+
+    }
+
+    public long getDbSize() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        long count = DatabaseUtils.queryNumEntries(db, DB_TABLE);
+        System.out.println(count);
+        db.close();
+        return count;
     }
 }
 

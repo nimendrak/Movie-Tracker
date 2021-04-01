@@ -10,25 +10,30 @@
     <string name="search_btn_text">Search</string>
     <string name="ratings_btn_text">Ratings</string>
 
-
     <!-- Register Movie -->
-    <string name="register_movie_textView">Register Movie</string>
+    <string name="register_movie_title_textView">Register Movie</string>
     <string name="title_textView">Title of the Movie</string>
     <string name="year_textView">Year of the Movie</string>
     <string name="director_textView">Director of the Movie</string>
+    <string name="cast_textView">List of Actors/ Actress</string>
     <string name="ratings_textView">Ratings</string>
     <string name="reviews_textView">Reviews</string>
 
     <string name="title_hint">Title</string>
     <string name="director_hint">Director</string>
     <string name="year_hint">Year</string>
-    <string name="cast_textView">List of Actors/ Actress</string>
     <string name="cast_hint">Cast of the Movie</string>
     <string name="ratings_hint">Ratings out of 10</string>
     <string name="review_hint">Review</string>
+
     <string name="save_btnLabel">Save</string>
     <string name="reset_btnLabel">Reset</string>
+
     <string name="movie_indexLabel">Movie - #</string>
     <string name="movie_index">001</string>
+
+    <!--  Display Movies  -->
+    <string name="display_movies_title_textView">Display Movies</string>
+    <string name="add_btnLabel">Add</string>
 
 </resources>
