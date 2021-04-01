@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -52,6 +53,11 @@ public class DisplayMovies extends AppCompatActivity {
         CustomAdapter adapter = new CustomAdapter();
         ListView listView = findViewById(R.id.list_view);
         listView.setAdapter(adapter);
+
+        // Set ListView divider color programmatically
+        int[] colors = {0, 0xFFFFFFFF, 0};
+        listView.setDivider(new GradientDrawable(GradientDrawable.Orientation.RIGHT_LEFT, colors));
+        listView.setDividerHeight(1);
     }
 
     @Override
@@ -105,7 +111,7 @@ public class DisplayMovies extends AppCompatActivity {
                         for (int i = 0; i < movieTitles.size(); i++) {
                             // Add checked movie
                             if (checkboxesStatus.get(i)) {
-                                // Add only once to the arr
+                                // Every iteration add only one to the arr
                                 if (!favMoviesTitles.contains(movieTitles.get(i))) {
                                     favMoviesTitles.add(movieTitles.get(i));
                                 }

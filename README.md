@@ -1,15 +1,15 @@
 # Movie-Tracker
 This was a Native Android Mobile Application which was developed as a Movie Tracker in IIT-L5-SEM2.
 
-- Vehicle Identifying Game has following features :
+- Movie Tracker has following features :
 
-    - Select correct Car Make from a Dropdown Menu
-    - Select correct Car Make out of 3 car images
-    - Guess Car Maker's brand by entering letters
-    - Enter 3 different Car Make brands and score
-    - 20s of Timer to get things spice a little bit
+    - Register Movies 
+    - Add/ Remove Favorites Movies
+    - Edit Registered Movies
+    - Search Movies
+    - Get Ratings from IMDB API
     
-All the populated images are picked randomly from the image array and remove them once the current acivity over. So player won't get the same car make in future. 
+Every actions that user takes as mentioned in the above list, will be saved in SQLite Database. 
 
 ## Essential Directory Layout
 

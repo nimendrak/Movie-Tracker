@@ -129,7 +129,7 @@ public class MovieDatabase extends SQLiteOpenHelper {
             for (int i = 0; i < favMovieList.size(); i++) {
                 myDb.update(DB_TABLE, cv, "mov_title = ?", new String[]{favMovieList.get(i)});
             }
-            showSnackBar(view, "Favorite Movie List Updated");
+            showSnackBar(view, "Favorite Movies List Updated");
         } catch (Exception e) {
             e.printStackTrace();
         }
