@@ -26,7 +26,9 @@ public class DisplayMovies extends AppCompatActivity {
     private static final String LOG_TAG = DisplayMovies.class.getSimpleName();
 
     private List<String> movieTitles;
-    private String sharedPrefFile = "com.project.movies";
+    private List<String> favMoviesTitles = new ArrayList<>();
+
+    private final String sharedPrefFile = "com.project.movies";
     private ArrayList<Boolean> checkboxesStatus = new ArrayList<>();
 
     MovieDatabase movieDatabase;
@@ -37,12 +39,13 @@ public class DisplayMovies extends AppCompatActivity {
         setContentView(R.layout.activity_display_movies);
 
         movieDatabase = MovieDatabase.getInstance(this);
-        int profileCount = (int) movieDatabase.getDbSize();
+        movieDatabase.showAll();
 
+        // Movie titles list
         movieTitles = movieDatabase.retrieveData();
 
         SharedPreferences preferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
-        for (int i = 0; i < profileCount; i++) {
+        for (int i = 0; i < movieTitles.size(); i++) {
             checkboxesStatus.add(preferences.getBoolean(String.format("checkbox %s", i), false));
         }
 
@@ -54,12 +57,27 @@ public class DisplayMovies extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+
         SharedPreferences preferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
         SharedPreferences.Editor preferencesEditor = preferences.edit();
-        for (int i = 0; i < checkboxesStatus.size(); i++) {
+        for (int i = 0; i < movieTitles.size(); i++) {
             preferencesEditor.putBoolean(String.format("checkbox %s", i), checkboxesStatus.get(i));
         }
         preferencesEditor.apply();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        ListView listView = findViewById(R.id.list_view);
+        listView.removeAllViewsInLayout();
+
+//        checkboxesStatus.clear();
+//        movieTitles.clear();
+//        favMoviesTitles.clear();
+
+        Log.i(LOG_TAG, "Destroyed");
     }
 
     private class CustomAdapter extends ArrayAdapter<String> {
@@ -83,6 +101,25 @@ public class DisplayMovies extends AppCompatActivity {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     checkboxesStatus.set(position, isChecked);
+                    if (isChecked) {
+                        for (int i = 0; i < movieTitles.size(); i++) {
+                            // Add checked movie
+                            if (checkboxesStatus.get(i)) {
+                                // Add only once to the arr
+                                if (!favMoviesTitles.contains(movieTitles.get(i))) {
+                                    favMoviesTitles.add(movieTitles.get(i));
+                                }
+                            }
+                        }
+                    } else {
+                        for (int i = 0; i < movieTitles.size(); i++) {
+                            // Remove non checked movie
+                            if (!checkboxesStatus.get(i)) {
+                                favMoviesTitles.remove(movieTitles.get(i));
+                            }
+                        }
+                    }
+                    System.out.println(favMoviesTitles);
                 }
             });
             checkBox.setChecked(checkboxesStatus.get(position));
@@ -92,6 +129,12 @@ public class DisplayMovies extends AppCompatActivity {
 
     public void AddToFav(View view) {
         Log.i("CheckboxesStatus", String.valueOf(checkboxesStatus));
+        Log.i("MovieTitles", String.valueOf(movieTitles));
+
+        movieDatabase.addToFavorites(findViewById(R.id.display_movie), favMoviesTitles);
+        movieDatabase.showAll();
+
+        Log.i("FavMovieTitles", String.valueOf(favMoviesTitles));
     }
 
 

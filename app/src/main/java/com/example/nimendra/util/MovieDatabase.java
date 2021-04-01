@@ -1,6 +1,7 @@
 package com.example.nimendra.util;
 
 import android.annotation.SuppressLint;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -8,7 +9,13 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
+
+import static android.provider.BaseColumns._ID;
+
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +27,8 @@ public class MovieDatabase extends SQLiteOpenHelper {
     private static final String DB_NAME = "MovieDatabase";
     private static final String DB_TABLE = "movies";
     private static final int DB_VERSION = 1;
+
+    Snackbar snackbar;
 
     Context context;
     SQLiteDatabase myDb;
@@ -38,7 +47,7 @@ public class MovieDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + DB_TABLE + " (mov_title text primary key, mov_year text, mov_director text, mov_cast text, mov_ratings text, mov_reviews text);");
+        db.execSQL("create table " + DB_TABLE + " (" + _ID + " INTEGER primary key autoincrement, mov_title TEXT unique, mov_year INTEGER, mov_director TEXT, mov_cast TEXT, mov_ratings INTEGER, mov_reviews TEXT, isFavourite BOOLEAN);");
         Log.i("Database", "Table Created");
     }
 
@@ -48,13 +57,17 @@ public class MovieDatabase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insertData(String mov_title, String mov_year, String mov_director, String mov_cast, String mov_ratings, String mov_reviews) {
+    public void insertData(String title, int year, String director, String cast, int ratings, String reviews, View view) {
+
         try {
             myDb = getWritableDatabase();
-            myDb.execSQL("insert into " + DB_TABLE + " (mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews) values ('" + mov_title + "' , '" + mov_year + "' , '" + mov_director + "' , '" + mov_cast + "' , '" + mov_ratings + "' , '" + mov_reviews + "');");
-            Toast.makeText(context, "Data Saved", Toast.LENGTH_SHORT).show();
+            myDb.execSQL("insert into " + DB_TABLE + " (mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews, isFavourite) values ('" + title + "' , '" + year + "' , '" + director + "' , '" + cast + "' , '" + ratings + "' , '" + reviews + "' , '" + 0 + "');");
+            showSnackBar(view, "Data has been recorded");
+
+            // Sample data
+            myDb.execSQL("insert into " + DB_TABLE + " (mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews, isFavourite) values ('" + "Zack Snyders Justice League" + "' , '" + 2021 + "' , '" + "Zack Snyder" + "' , '" + "Ben Affleck, Henry Cavil, Ezra Miller, Jason Mamoa" + "' , '" + 10 + "' , '" + "WooW-zer" + "' , '" + 0 + "');");
         } catch (Exception e) {
-            Toast.makeText(context, "This ID is already exists", Toast.LENGTH_SHORT).show();
+            showSnackBar(view, "Movie is already recorded");
         }
     }
 
@@ -103,8 +116,19 @@ public class MovieDatabase extends SQLiteOpenHelper {
         }
     }
 
-    public void addToFave() {
+    public void addToFavorites(View view, List<String> favMovieList) {
+        myDb = getWritableDatabase();
 
+        ContentValues cv = new ContentValues();
+        cv.put("isFavourite", true);
+        try {
+            for (int i = 0; i < favMovieList.size(); i++) {
+                myDb.update(DB_TABLE, cv, "mov_title = ?", new String[]{favMovieList.get(i)});
+            }
+            showSnackBar(view, "Favorite Movie List Updated");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public long getDbSize() {
@@ -113,6 +137,40 @@ public class MovieDatabase extends SQLiteOpenHelper {
         System.out.println(count);
         db.close();
         return count;
+    }
+
+    // And shows a SnackBar to the consumer with a proper message
+    public void showSnackBar(View view, String message) {
+        snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
+        snackbar.setDuration(2500);
+        snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
+        snackbar.setAction("OK", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+        snackbar.show();
+    }
+
+    public void showAll() {
+        myDb = getReadableDatabase();
+
+        @SuppressLint("Recycle")
+        Cursor cr = myDb.rawQuery("Select * from " + DB_TABLE, null);
+
+        while (cr.moveToNext()) {
+            String s1 = cr.getString(0);
+            String s2 = cr.getString(1);
+            String s3 = cr.getString(2);
+            String s4 = cr.getString(3);
+            String s5 = cr.getString(4);
+            String s6 = cr.getString(5);
+            String s7 = cr.getString(6);
+            String s8 = cr.getString(7);
+
+            System.out.println(s1 + " - " + s2 + ", isFavourite -> " + s8);
+
+        }
     }
 }
 

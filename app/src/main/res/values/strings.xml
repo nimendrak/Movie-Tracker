@@ -34,6 +34,6 @@
 
     <!--  Display Movies  -->
     <string name="display_movies_title_textView">Display Movies</string>
-    <string name="add_btnLabel">Add</string>
+    <string name="add_btnLabel">Add To Favorites</string>
 
 </resources>

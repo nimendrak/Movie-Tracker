@@ -48,19 +48,12 @@ public class RegisterMovie extends AppCompatActivity {
     public void registerMovie(View view) {
 
         String title = getMovieTitle.getText().toString();
-        String year = getMovieYear.getText().toString();
+        int year = Integer.parseInt(getMovieYear.getText().toString());
         String director = getMovieDirector.getText().toString();
         String cast = getMovieCast.getText().toString();
-        String ratings = getMovieRatings.getText().toString();
+        int ratings = Integer.parseInt(getMovieRatings.getText().toString());
         String reviews = getMovieReviews.getText().toString();
 
-        Log.d(LOG_TAG, " title -> "+ title);
-        Log.d(LOG_TAG, " year -> "+ year);
-        Log.d(LOG_TAG, " director -> "+ director);
-        Log.d(LOG_TAG, " cast -> "+ cast);
-        Log.d(LOG_TAG, " ratings -> "+ ratings);
-        Log.d(LOG_TAG, " reviews -> "+ reviews);
-
-        movieDatabase.insertData(title, year, director, cast, ratings, reviews);
+        movieDatabase.insertData(title, year, director, cast, ratings, reviews, findViewById(R.id.register_movie));
     }
 }

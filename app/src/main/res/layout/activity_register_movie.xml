@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#2E2E2E"
     android:layout_height="match_parent"
+    android:background="#2E2E2E"
+    android:id="@+id/register_movie"
     tools:context=".RegisterMovie">
 
     <TextView
@@ -217,7 +218,7 @@
         android:id="@+id/save_btn"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="42dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/button_ripple_effect"
         android:text="@string/save_btnLabel"
@@ -233,7 +234,7 @@
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="42dp"
         android:background="@drawable/button_ripple_effect"
         android:text="@string/reset_btnLabel"
         android:textColor="#2E2E2E"

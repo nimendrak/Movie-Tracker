@@ -5,6 +5,7 @@
     android:background="#2E2E2E"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/display_movie"
     tools:context=".DisplayMovies">
 
     <TextView
@@ -19,7 +20,7 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestScrollView"
         android:layout_width="0dp"
-        android:layout_height="475dp"
+        android:layout_height="450dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:fillViewport="true"
@@ -28,7 +29,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_movie_title"
-        app:layout_constraintVertical_bias="0.274">
+        app:layout_constraintVertical_bias="0.274" >
 
         <LinearLayout
             android:id="@+id/display_linearLayout"
@@ -49,29 +50,29 @@
         android:id="@+id/save_btn"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/button_ripple_effect"
-        android:text="@string/add_btnLabel"
         android:onClick="AddToFav"
+        android:text="@string/add_btnLabel"
         android:textColor="#2E2E2E"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nestScrollView" />
+        app:layout_constraintTop_toBottomOf="@+id/nestScrollView"
+        app:layout_constraintVertical_bias="0.375" />
 
     <Button
         android:id="@+id/reset_btn"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/button_ripple_effect"
         android:text="@string/reset_btnLabel"
         android:textColor="#2E2E2E"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nestScrollView" />
+        app:layout_constraintTop_toBottomOf="@+id/nestScrollView"
+        app:layout_constraintVertical_bias="0.375" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
