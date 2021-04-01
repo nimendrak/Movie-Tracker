@@ -8,22 +8,31 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.example.nimendra.util.MovieDatabase;
+
 public class MainActivity extends AppCompatActivity {
 
     // Class name for Log tag
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
-    // Hold the value of Switch Stats
+
+    MovieDatabase movieDatabase;
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        movieDatabase = MovieDatabase.getInstance(this);
     }
 
-    public void launchRegisterMovie(View view) {
+    public void registerMovie(View view) {
         Intent intent = new Intent(this, RegisterMovie.class);
         startActivity(intent);
-        Log.i(LOG_TAG, "Launched Register Movie");
+    }
+
+    public void displayMovies(View view) {
+        Intent intent = new Intent(this, DisplayMovies.class);
+        startActivity(intent);
     }
 }

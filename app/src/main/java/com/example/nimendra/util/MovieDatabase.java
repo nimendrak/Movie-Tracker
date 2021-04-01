@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
-class MovieDatabase extends SQLiteOpenHelper {
+public class MovieDatabase extends SQLiteOpenHelper {
     @SuppressLint("StaticFieldLeak")
     public static MovieDatabase instance;
 
@@ -17,12 +17,12 @@ class MovieDatabase extends SQLiteOpenHelper {
     private static final String DB_TABLE = "movies";
     private static final int DB_VERSION = 1;
 
-    Context ctx;
+    Context context;
     SQLiteDatabase myDb;
 
     private MovieDatabase(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
-        ctx = context;
+        this.context = context;
     }
 
     public static MovieDatabase getInstance(Context context) {
@@ -34,7 +34,7 @@ class MovieDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + DB_TABLE + " (mov_id text primary key, mov_title text, mov_year text, mov_director text, mov_ratings text, mov_reviews text);");
+        db.execSQL("create table " + DB_TABLE + " (mov_title text primary key, mov_year text, mov_director text, mov_cast text, mov_ratings text, mov_reviews text);");
         Log.i("Database", "Table Created");
     }
 
@@ -44,14 +44,13 @@ class MovieDatabase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insertData(String mov_id, String mov_title, String mov_year, String mov_director, String mov_cast, String mov_ratings, String mov_reviews) {
+    public void insertData(String mov_title, String mov_year, String mov_director, String mov_cast, String mov_ratings, String mov_reviews) {
         try {
             myDb = getWritableDatabase();
-            myDb.execSQL("insert into " + DB_TABLE + " (mov_id,mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews) values ('" + mov_id + "' , '"
-                    + mov_title + "' , '" + mov_year + "' ,'" + mov_director + "' , '" + mov_cast + "' , '" + mov_ratings + "' , '" + mov_reviews + "');");
-            Toast.makeText(ctx, "Data Saved", Toast.LENGTH_SHORT).show();
+            myDb.execSQL("insert into " + DB_TABLE + " (mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews) values ('" + mov_title + "' , '" + mov_year + "' , '" + mov_director + "' , '" + mov_cast + "' , '" + mov_ratings + "' , '" + mov_reviews + "');");
+            Toast.makeText(context, "Data Saved", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
-            Toast.makeText(ctx, "This ID is already exists", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "This ID is already exists", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -67,26 +66,24 @@ class MovieDatabase extends SQLiteOpenHelper {
             String s4 = cr.getString(3);
             String s5 = cr.getString(4);
             String s6 = cr.getString(5);
-            String s7 = cr.getString(6);
             str.append(s1).append(": ");
             str.append(s2).append(": ");
             str.append(s3).append(": ");
             str.append(s4).append(": ");
             str.append(s5).append(": ");
-            str.append(s6).append(": ");
-            str.append(s7).append("\n");
+            str.append(s6).append("\n");
         }
 
         return str.toString();
     }
 
-    public void delete(String id) {
+    public void delete(String title) {
         try {
             myDb = getWritableDatabase();
-            myDb.delete(DB_TABLE, "mov_id=?", new String[]{id});
-            Toast.makeText(ctx, "Deleted", Toast.LENGTH_SHORT).show();
+            myDb.delete(DB_TABLE, "mov_title=?", new String[]{title});
+            Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
-            Toast.makeText(ctx, "Could not find ID", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Could not find Movie Title", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -101,10 +98,10 @@ class MovieDatabase extends SQLiteOpenHelper {
             cv.put("emp_position", emp_position);
 
             myDb.update(DB_TABLE, cv, "emp_id = ?", new String[]{emp_id});
-            Toast.makeText(ctx, "Updated", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show();
 
         } catch (Exception e) {
-            Toast.makeText(ctx, "Could not find ID", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Could not find ID", Toast.LENGTH_SHORT).show();
         }
     }
 }

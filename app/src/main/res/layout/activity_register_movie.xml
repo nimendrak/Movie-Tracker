@@ -95,64 +95,61 @@
         app:layout_constraintTop_toBottomOf="@+id/ratings_textView" />
 
     <EditText
-        android:id="@+id/title_textInput"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="42dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:background="@drawable/rounded_text"
-        android:padding="10dp"
-        android:hint="@string/title_hint"
-        android:inputType="textPersonName"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#80FFFFFF"
-        app:layout_constraintBaseline_toBaselineOf="@+id/title_textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/title_textView"
-        tools:text="@tools:sample/first_names"
-        android:autofillHints="" />
-
-    <EditText
-        android:id="@+id/year_textInput"
+        android:id="@+id/title_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
         android:layout_marginEnd="16dp"
         android:autofillHints=""
-        android:ems="10"
         android:background="@drawable/rounded_text"
+        android:ems="10"
+        android:hint="@string/title_hint"
+        android:inputType="textPersonName"
         android:padding="10dp"
-        android:hint="@string/year_hint"
-        android:inputType="number"
         android:textColor="#FFFFFF"
         android:textColorHint="#80FFFFFF"
-        app:layout_constraintBaseline_toBaselineOf="@+id/year_textView"
+        app:layout_constraintBaseline_toBaselineOf="@+id/title_textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/title_textView"
-        tools:text="@tools:sample/first_names" />
+        app:layout_constraintStart_toEndOf="@+id/title_textView" />
 
     <EditText
-        android:id="@+id/director_textInput"
+        android:id="@+id/year_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
         android:layout_marginEnd="16dp"
+        android:autofillHints=""
+        android:background="@drawable/rounded_text"
+        android:ems="10"
+        android:hint="@string/year_hint"
+        android:inputType="number"
+        android:padding="10dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#80FFFFFF"
+        app:layout_constraintBaseline_toBaselineOf="@+id/year_textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/title_textView" />
+
+    <EditText
+        android:id="@+id/director_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="16dp"
+        android:autofillHints=""
+        android:background="@drawable/rounded_text"
         android:ems="10"
         android:hint="@string/director_hint"
-        android:background="@drawable/rounded_text"
-        android:padding="10dp"
         android:inputType="textPersonName"
+        android:padding="10dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#80FFFFFF"
         app:layout_constraintBaseline_toBaselineOf="@+id/director_textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/title_textView"
-        tools:text="@tools:sample/first_names"
-        android:autofillHints="" />
+        app:layout_constraintStart_toEndOf="@+id/title_textView" />
 
     <EditText
-        android:id="@+id/cast_textInput"
+        android:id="@+id/cast_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
@@ -173,7 +170,7 @@
         tools:ignore="LabelFor" />
 
     <EditText
-        android:id="@+id/ratings_textInput"
+        android:id="@+id/ratings_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
@@ -195,7 +192,7 @@
         tools:ignore="LabelFor" />
 
     <EditText
-        android:id="@+id/reviews_textInput"
+        android:id="@+id/reviews_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
@@ -224,6 +221,7 @@
         android:layout_marginEnd="16dp"
         android:background="@drawable/button_ripple_effect"
         android:text="@string/save_btnLabel"
+        android:onClick="registerMovie"
         android:textColor="#2E2E2E"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
