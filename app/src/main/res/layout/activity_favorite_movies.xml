@@ -37,6 +37,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fav    Movie Name"
+                android:layout_marginStart="16dp"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
             <ListView
                 android:id="@+id/list_view"
                 android:layout_width="match_parent"
@@ -52,8 +62,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:background="@drawable/button_ripple_effect"
-        android:onClick="saveFavorites"
-        android:text="@string/save_fav_btnLabel"
+        android:onClick="removeFromFavorites"
+        android:text="@string/remove_btnLabel"
         android:textColor="#2E2E2E"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -75,5 +85,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nestScrollView"
         app:layout_constraintVertical_bias="0.375" />
+
+    <CheckBox
+        android:id="@+id/favored_checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:checked="true"
+        android:text="@string/to_be_removed_checkBoxLabel"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/nestScrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_movie_title"
+        app:layout_constraintVertical_bias="0.555" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -38,7 +38,11 @@
 
 
     <!--  Favorite Movies  -->
-    <string name="save_fav_btnLabel">Save</string>
     <string name="favorites_movies_title">Favorites Movies</string>
+    <string name="remove_btnLabel">Remove Favorites</string>
+    <string name="disfavor_checkBoxLabel">Disfavor</string>
+    <string name="disfavored_checkBoxLabel">Disfavored</string>
+    <string name="favored_checkBoxLabel">Favored</string>
+    <string name="to_be_removed_checkBoxLabel">To be Removed</string>
 
 </resources>

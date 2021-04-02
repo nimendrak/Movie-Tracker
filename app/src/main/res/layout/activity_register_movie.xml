@@ -237,6 +237,7 @@
         android:layout_marginTop="42dp"
         android:background="@drawable/button_ripple_effect"
         android:text="@string/reset_btnLabel"
+        android:onClick="resetData"
         android:textColor="#2E2E2E"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"

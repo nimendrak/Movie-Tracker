@@ -18,7 +18,6 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,9 +27,7 @@ public class MovieDatabase extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "MovieDatabase";
     private static final String DB_TABLE = "movies";
-    private static final int DB_VERSION = 2;
-
-    Snackbar snackbar;
+    private static final int DB_VERSION = 1;
 
     Context context;
     SQLiteDatabase myDb;
@@ -67,12 +64,15 @@ public class MovieDatabase extends SQLiteOpenHelper {
 
             // Sample data
             myDb.execSQL("insert into " + DB_TABLE + " (mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews, isFavourite) values ('" + "Zack Snyders Justice League" + "' , '" + 2021 + "' , '" + "Zack Snyder" + "' , '" + "Ben Affleck, Henry Cavil, Ezra Miller, Jason Mamoa" + "' , '" + 10 + "' , '" + "WooW-zer" + "' , '" + 0 + "');");
+            myDb.execSQL("insert into " + DB_TABLE + " (mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews, isFavourite) values ('" + "aaa" + "' , '" + 2021 + "' , '" + "abc" + "' , '" + "a, b, c" + "' , '" + 10 + "' , '" + "ooo" + "' , '" + 0 + "');");
+            myDb.execSQL("insert into " + DB_TABLE + " (mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews, isFavourite) values ('" + "bbb" + "' , '" + 2021 + "' , '" + "abc" + "' , '" + "a, b, c" + "' , '" + 10 + "' , '" + "ooo" + "' , '" + 0 + "');");
+
         } catch (Exception e) {
             showSnackBar(view, "Movie is already recorded");
         }
     }
 
-    public List<String> retrieveData() {
+    public List<String> retrieveMoviesData() {
         myDb = getReadableDatabase();
         Cursor cursor = myDb.rawQuery("Select * from " + DB_TABLE, null);
 
@@ -83,6 +83,8 @@ public class MovieDatabase extends SQLiteOpenHelper {
                 movieTitles.add(cursor.getString(cursor.getColumnIndex("mov_title")));
             }
         }
+
+        Log.i("Database Movies -> ", String.valueOf(movieTitles));
         cursor.close();
         myDb.close();
 
@@ -97,8 +99,6 @@ public class MovieDatabase extends SQLiteOpenHelper {
         String query = "SELECT * FROM " + DB_TABLE + " where isFavourite='" + 1 + "'";
         Cursor cursor = myDb.rawQuery(query, null);
 
-//        Cursor cursor = myDb.rawQuery("Select * from " + DB_TABLE, null);
-
         List<String> favoriteMovieList = new ArrayList<>();
         if (cursor.moveToFirst()) {
             favoriteMovieList.add(cursor.getString(cursor.getColumnIndex("mov_title")));
@@ -106,6 +106,7 @@ public class MovieDatabase extends SQLiteOpenHelper {
                 favoriteMovieList.add(cursor.getString(cursor.getColumnIndex("mov_title")));
             }
         }
+
         cursor.close();
         myDb.close();
 
@@ -151,27 +152,26 @@ public class MovieDatabase extends SQLiteOpenHelper {
         try {
             // Set all isFavorites to false and update accordingly
             myDb.execSQL("UPDATE movies SET isFavourite = 0");
-
             for (int i = 0; i < favMovieList.size(); i++) {
                 myDb.update(DB_TABLE, cv, "mov_title = ?", new String[]{favMovieList.get(i)});
             }
             showSnackBar(view, "Favorite Movies List Updated");
         } catch (Exception e) {
             e.printStackTrace();
+            showSnackBar(view, "Favorite Movies List Updated");
         }
     }
 
     public long getDbSize() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        long count = DatabaseUtils.queryNumEntries(db, DB_TABLE);
-        System.out.println(count);
-        db.close();
+        myDb = getReadableDatabase();
+        long count = DatabaseUtils.queryNumEntries(myDb, DB_TABLE);
+        myDb.close();
         return count;
     }
 
     // And shows a SnackBar to the consumer with a proper message
     public void showSnackBar(View view, String message) {
-        snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
+        Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
         snackbar.setDuration(2500);
         snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
         snackbar.setAction("OK", new View.OnClickListener() {
@@ -201,6 +201,7 @@ public class MovieDatabase extends SQLiteOpenHelper {
             System.out.println(s1 + " - " + s2 + ", isFavourite -> " + s8);
 
         }
+        myDb.close();
     }
 }
 

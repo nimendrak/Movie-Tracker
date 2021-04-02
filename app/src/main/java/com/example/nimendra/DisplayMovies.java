@@ -3,6 +3,7 @@ package com.example.nimendra;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -29,7 +30,6 @@ public class DisplayMovies extends AppCompatActivity {
     private List<String> movieTitles;
     private List<String> favMoviesTitles = new ArrayList<>();
 
-    private final String sharedPrefFile = "com.project.movies";
     private ArrayList<Boolean> checkboxesStatus = new ArrayList<>();
 
     MovieDatabase movieDatabase;
@@ -43,9 +43,9 @@ public class DisplayMovies extends AppCompatActivity {
         movieDatabase.showAll();
 
         // Movie titles list
-        movieTitles = movieDatabase.retrieveData();
+        movieTitles = movieDatabase.retrieveMoviesData();
 
-        SharedPreferences preferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences(DisplayMovies.class.getSimpleName(), Context.MODE_PRIVATE);
         for (int i = 0; i < movieTitles.size(); i++) {
             checkboxesStatus.add(preferences.getBoolean(String.format("checkbox %s", i), false));
         }
@@ -64,23 +64,23 @@ public class DisplayMovies extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        SharedPreferences preferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences(DisplayMovies.class.getSimpleName(), Context.MODE_PRIVATE);
         SharedPreferences.Editor preferencesEditor = preferences.edit();
         for (int i = 0; i < movieTitles.size(); i++) {
             preferencesEditor.putBoolean(String.format("checkbox %s", i), checkboxesStatus.get(i));
         }
         preferencesEditor.apply();
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        ListView listView = findViewById(R.id.list_view);
-        listView.removeAllViewsInLayout();
-
-        Log.i(LOG_TAG, "Destroyed");
-    }
+//
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//
+//        ListView listView = findViewById(R.id.list_view);
+//        listView.removeAllViewsInLayout();
+//
+//        Log.i(LOG_TAG, "Destroyed");
+//    }
 
     private class CustomAdapter extends ArrayAdapter<String> {
         public CustomAdapter() {
@@ -104,22 +104,14 @@ public class DisplayMovies extends AppCompatActivity {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     checkboxesStatus.set(position, isChecked);
                     if (isChecked) {
-                        for (int i = 0; i < movieTitles.size(); i++) {
-                            // Add checked movie
-                            if (checkboxesStatus.get(i)) {
-                                // Every iteration add only one to the arr
-                                if (!favMoviesTitles.contains(movieTitles.get(i))) {
-                                    favMoviesTitles.add(movieTitles.get(i));
-                                }
-                            }
+                        // Every iteration add only one to the arr
+                        if (!favMoviesTitles.contains(movieTitles.get(position))) {
+                            favMoviesTitles.add(movieTitles.get(position));
                         }
                     } else {
-                        for (int i = 0; i < movieTitles.size(); i++) {
-                            // Remove non checked movie
-                            if (!checkboxesStatus.get(i)) {
-                                favMoviesTitles.remove(movieTitles.get(i));
-                            }
-                        }
+                        // Remove non checked movie
+                        favMoviesTitles.remove(movieTitles.get(position));
+                        checkboxesStatus.remove(checkboxesStatus.get(position));
                     }
                     System.out.println(favMoviesTitles);
                 }
@@ -134,5 +126,6 @@ public class DisplayMovies extends AppCompatActivity {
         movieDatabase.showAll();
     }
 
-
+    public void resetStatus(View view) {
+    }
 }

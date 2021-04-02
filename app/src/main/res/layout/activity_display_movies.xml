@@ -37,6 +37,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fav    Movie Name"
+                android:layout_marginStart="16dp"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
             <ListView
                 android:id="@+id/list_view"
                 android:layout_width="match_parent"
@@ -68,11 +78,42 @@
         android:layout_marginStart="16dp"
         android:background="@drawable/button_ripple_effect"
         android:text="@string/reset_btnLabel"
+        android:onClick="resetStatus"
         android:textColor="#2E2E2E"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nestScrollView"
         app:layout_constraintVertical_bias="0.375" />
+
+    <CheckBox
+        android:id="@+id/favored_checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="184dp"
+        android:checked="true"
+        android:text="@string/favored_checkBoxLabel"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/nestScrollView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_movie_title"
+        app:layout_constraintVertical_bias="0.555" />
+
+    <CheckBox
+        android:id="@+id/disfavored_checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:checked="false"
+        android:enabled="false"
+        android:text="@string/disfavored_checkBoxLabel"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/nestScrollView"
+        app:layout_constraintStart_toEndOf="@+id/favored_checkBox"
+        app:layout_constraintTop_toBottomOf="@+id/register_movie_title"
+        app:layout_constraintVertical_bias="0.555" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

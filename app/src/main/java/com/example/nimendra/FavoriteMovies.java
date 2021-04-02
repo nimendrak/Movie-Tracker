@@ -3,6 +3,8 @@ package com.example.nimendra;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -26,11 +28,10 @@ public class FavoriteMovies extends AppCompatActivity {
     // Class name for Log tag
     private static final String LOG_TAG = DisplayMovies.class.getSimpleName();
 
-    private List<String> movieTitles;
-    private List<String> favMoviesTitles = new ArrayList<>();
-
-    private final String sharedPrefFile = "com.project.movies";
+    private List<String> favMoviesTitles;
     private ArrayList<Boolean> checkboxesStatus = new ArrayList<>();
+
+    private CustomAdapter adapter;
 
     MovieDatabase movieDatabase;
 
@@ -40,17 +41,19 @@ public class FavoriteMovies extends AppCompatActivity {
         setContentView(R.layout.activity_favorite_movies);
 
         movieDatabase = MovieDatabase.getInstance(this);
-        movieDatabase.showAll();
 
         // Favorite Movie titles list
-        movieTitles = movieDatabase.retrieveFavoriteData();
+        favMoviesTitles = movieDatabase.retrieveFavoriteData();
 
-        SharedPreferences preferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
-        for (int i = 0; i < movieTitles.size(); i++) {
+        Log.i(LOG_TAG, String.valueOf(favMoviesTitles.size()));
+        Log.i(LOG_TAG, String.valueOf(favMoviesTitles));
+
+        SharedPreferences preferences = getSharedPreferences(FavoriteMovies.class.getSimpleName(), Context.MODE_PRIVATE);
+        for (int i = 0; i < favMoviesTitles.size(); i++) {
             checkboxesStatus.add(preferences.getBoolean(String.format("checkbox %s", i), false));
         }
 
-        CustomAdapter adapter = new CustomAdapter();
+        adapter = new CustomAdapter();
         ListView listView = findViewById(R.id.list_view);
         listView.setAdapter(adapter);
 
@@ -64,27 +67,27 @@ public class FavoriteMovies extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        SharedPreferences preferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences(FavoriteMovies.class.getSimpleName(), Context.MODE_PRIVATE);
         SharedPreferences.Editor preferencesEditor = preferences.edit();
-        for (int i = 0; i < movieTitles.size(); i++) {
+        for (int i = 0; i < favMoviesTitles.size(); i++) {
             preferencesEditor.putBoolean(String.format("checkbox %s", i), checkboxesStatus.get(i));
         }
         preferencesEditor.apply();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        ListView listView = findViewById(R.id.list_view);
-        listView.removeAllViewsInLayout();
-
-        Log.i(LOG_TAG, "Destroyed");
-    }
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//
+//        ListView listView = findViewById(R.id.list_view);
+//        listView.removeAllViewsInLayout();
+//
+//        Log.i(LOG_TAG, "Destroyed");
+//    }
 
     private class CustomAdapter extends ArrayAdapter<String> {
         public CustomAdapter() {
-            super(FavoriteMovies.this, R.layout.list_view_row, movieTitles);
+            super(FavoriteMovies.this, R.layout.list_view_row, favMoviesTitles);
         }
 
         @SuppressLint("InflateParams")
@@ -96,32 +99,21 @@ public class FavoriteMovies extends AppCompatActivity {
                 rowView = inflater.inflate(R.layout.list_view_row, null, true);
             }
             TextView text = rowView.findViewById(R.id.label);
-            text.setText(movieTitles.get(position));
+            text.setText(favMoviesTitles.get(position));
 
             CheckBox checkBox = rowView.findViewById(R.id.checkbox);
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    System.out.println("position -> " + position);
                     checkboxesStatus.set(position, isChecked);
                     if (isChecked) {
-                        for (int i = 0; i < movieTitles.size(); i++) {
-                            // Add checked movie
-                            if (checkboxesStatus.get(i)) {
-                                // Every iteration add only one to the arr
-                                if (!favMoviesTitles.contains(movieTitles.get(i))) {
-                                    favMoviesTitles.add(movieTitles.get(i));
-                                }
-                            }
-                        }
-                    } else {
-                        for (int i = 0; i < movieTitles.size(); i++) {
-                            // Remove non checked movie
-                            if (!checkboxesStatus.get(i)) {
-                                favMoviesTitles.remove(movieTitles.get(i));
-                            }
-                        }
+                        // Remove non checked movie
+                        favMoviesTitles.remove(favMoviesTitles.get(position));
+                        checkboxesStatus.remove(checkboxesStatus.get(position));
                     }
                     System.out.println(favMoviesTitles);
+                    System.out.println(checkboxesStatus);
                 }
             });
             checkBox.setChecked(checkboxesStatus.get(position));
@@ -129,10 +121,13 @@ public class FavoriteMovies extends AppCompatActivity {
         }
     }
 
-    public void saveFavorites(View view) {
-        movieDatabase.addToFavorites(findViewById(R.id.display_movie), favMoviesTitles);
+    public void removeFromFavorites(View view) {
+        movieDatabase.addToFavorites(findViewById(R.id.favorites_movies), favMoviesTitles);
         movieDatabase.showAll();
+
+        adapter.notifyDataSetChanged();
+
+        Log.i(LOG_TAG, String.valueOf(favMoviesTitles.size()));
+        Log.i(LOG_TAG, String.valueOf(favMoviesTitles));
     }
-
-
 }
