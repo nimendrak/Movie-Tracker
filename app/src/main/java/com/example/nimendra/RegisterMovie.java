@@ -52,7 +52,7 @@ public class RegisterMovie extends AppCompatActivity {
 
         movieIndex = findViewById(R.id.movie_index);
 
-        getMovieTitle.setText("Godzilla Vs Kong");
+        getMovieTitle.setText("Godzilla vs Kong");
         getMovieYear.setText("2021");
         getMovieDirector.setText("Adam Wingard");
         getMovieCast.setText("Alexander Skarsg˚ard, Millie Bobby Brown, Rebecca Hall, Brian Tyree Henry, Shun Oguri, Eiza Gonz´alez, Julian Dennison");

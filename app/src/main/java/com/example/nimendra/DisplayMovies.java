@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,7 +83,7 @@ public class DisplayMovies extends AppCompatActivity {
 
     private class CustomAdapter extends ArrayAdapter<String> {
         public CustomAdapter() {
-            super(DisplayMovies.this, R.layout.list_view_row, movieTitles);
+            super(DisplayMovies.this, R.layout.list_view_row_des1, movieTitles);
         }
 
         @SuppressLint("InflateParams")
@@ -93,7 +92,7 @@ public class DisplayMovies extends AppCompatActivity {
             View rowView = view;
             if (rowView == null) {
                 LayoutInflater inflater = getLayoutInflater();
-                rowView = inflater.inflate(R.layout.list_view_row, null, true);
+                rowView = inflater.inflate(R.layout.list_view_row_des1, null, true);
             }
             TextView text = rowView.findViewById(R.id.label);
             text.setText(movieTitles.get(position));

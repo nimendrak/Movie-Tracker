@@ -29,7 +29,7 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/button_ripple_effect"
         android:text="@string/favourites_btn_text"
-        android:onClick="launchFavorites"
+        android:onClick="displayFavorites"
         android:textColor="#2E2E2E"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@+id/edit_movies_btn" />
 
     <Button
-        android:id="@+id/favorites_btn2"
+        android:id="@+id/search_btn"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -52,7 +52,7 @@
         app:layout_constraintTop_toBottomOf="@+id/favorites_btn" />
 
     <Button
-        android:id="@+id/favorites_btn3"
+        android:id="@+id/ratings_btn"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -63,7 +63,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/favorites_btn2" />
+        app:layout_constraintTop_toBottomOf="@+id/search_btn" />
 
     <Button
         android:id="@+id/display_movies_btn"
@@ -87,6 +87,7 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/button_ripple_effect"
         android:text="@string/edit_movies_btn_text"
+        android:onClick="editMovies"
         android:textColor="#2E2E2E"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"

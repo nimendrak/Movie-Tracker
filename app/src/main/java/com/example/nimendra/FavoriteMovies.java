@@ -3,7 +3,6 @@ package com.example.nimendra;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.GradientDrawable;
@@ -87,7 +86,7 @@ public class FavoriteMovies extends AppCompatActivity {
 
     private class CustomAdapter extends ArrayAdapter<String> {
         public CustomAdapter() {
-            super(FavoriteMovies.this, R.layout.list_view_row, favMoviesTitles);
+            super(FavoriteMovies.this, R.layout.list_view_row_des1, favMoviesTitles);
         }
 
         @SuppressLint("InflateParams")
@@ -96,7 +95,7 @@ public class FavoriteMovies extends AppCompatActivity {
             View rowView = view;
             if (rowView == null) {
                 LayoutInflater inflater = getLayoutInflater();
-                rowView = inflater.inflate(R.layout.list_view_row, null, true);
+                rowView = inflater.inflate(R.layout.list_view_row_des1, null, true);
             }
             TextView text = rowView.findViewById(R.id.label);
             text.setText(favMoviesTitles.get(position));

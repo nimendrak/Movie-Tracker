@@ -44,5 +44,6 @@
     <string name="disfavored_checkBoxLabel">Disfavored</string>
     <string name="favored_checkBoxLabel">Favored</string>
     <string name="to_be_removed_checkBoxLabel">To be Removed</string>
+    <string name="edit_movie_data_title">Edit Movie Data</string>
 
 </resources>

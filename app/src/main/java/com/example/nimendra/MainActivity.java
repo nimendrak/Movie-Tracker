@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.example.nimendra.util.MovieDatabase;
@@ -36,8 +35,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void launchFavorites(View view) {
+    public void displayFavorites(View view) {
         Intent intent = new Intent(this, FavoriteMovies.class);
+        startActivity(intent);
+    }
+
+    public void editMovies(View view) {
+        Intent intent = new Intent(this, EditMoviesMenu.class);
         startActivity(intent);
     }
 }
