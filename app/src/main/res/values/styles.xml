@@ -1,7 +1,7 @@
 <resources>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+        <!-- Customize your theme here -->
         <item name="colorPrimary">#FFC542</item>
         <item name="colorPrimaryDark">#FC9047</item>
         <item name="colorAccent">#EA783F</item>
@@ -22,14 +22,11 @@
         <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="carImageHolder" >
-        <item name="android:background">#FFC542</item>
-        <item name="android:padding">10dp</item>
-    </style>
-
-    <style name="ratingBar" parent="@android:style/Widget.RatingBar">
-        <item name="colorControlNormal">#FFC542</item>
-        <item name="colorControlActivated">#EA783F</item>
+    <style name="ratingBar" parent="@android:style/Widget.DeviceDefault.RatingBar.Indicator">
+        <item name="android:minHeight">48dp</item>
+        <item name="android:maxHeight">48dp</item>
+        <item name="colorControlNormal">@color/design_default_color_error</item>
+        <item name="colorControlActivated">@color/cardview_light_background</item>
     </style>
 
 </resources>

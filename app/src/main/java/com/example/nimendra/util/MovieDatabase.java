@@ -63,9 +63,9 @@ public class MovieDatabase extends SQLiteOpenHelper {
             showSnackBar(view, "Data has been recorded");
 
             // Sample data
-            myDb.execSQL("insert into " + DB_TABLE + " (mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews, isFavourite) values ('" + "Zack Snyders Justice League" + "' , '" + 2021 + "' , '" + "Zack Snyder" + "' , '" + "Ben Affleck, Henry Cavil, Ezra Miller, Jason Mamoa" + "' , '" + 10 + "' , '" + "WooW-zer" + "' , '" + 0 + "');");
-            myDb.execSQL("insert into " + DB_TABLE + " (mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews, isFavourite) values ('" + "aaa" + "' , '" + 2021 + "' , '" + "abc" + "' , '" + "a, b, c" + "' , '" + 10 + "' , '" + "ooo" + "' , '" + 0 + "');");
-            myDb.execSQL("insert into " + DB_TABLE + " (mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews, isFavourite) values ('" + "bbb" + "' , '" + 2021 + "' , '" + "abc" + "' , '" + "a, b, c" + "' , '" + 10 + "' , '" + "ooo" + "' , '" + 0 + "');");
+            myDb.execSQL("insert into " + DB_TABLE + " (mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews, isFavourite) values ('" + "Zack Snyder Justice League" + "' , '" + 2021 + "' , '" + "Zack Snyder" + "' , '" + "Ben Affleck, Henry Cavil, Ezra Miller, Jason Mamoa" + "' , '" + 10 + "' , '" + "t’s bloodier. More profane. Its quasi-spirituality can be perplexing. And then there’s this: It’s just a darker movier" + "' , '" + 0 + "');");
+            myDb.execSQL("insert into " + DB_TABLE + " (mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews, isFavourite) values ('" + "Tenet" + "' , '" + 2020 + "' , '" + "Chrsitopher Nolan" + "' , '" + "John Washington, Robert Pattinson, Elizabeth Debicki" + "' , '" + 8 + "' , '" + "Tenet is far from Nolans finest work" + "' , '" + 0 + "');");
+            myDb.execSQL("insert into " + DB_TABLE + " (mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews, isFavourite) values ('" + "Enola Holmes" + "' , '" + 2020 + "' , '" + "Harry Bradbeer" + "' , '" + "Millie Bobby Brown, Henry Cavil, Sam Claffin" + "' , '" + 6 + "' , '" + "Enola Holmes delivers mostly positive messages about individuality, equality and freedom." + "' , '" + 0 + "');");
 
         } catch (Exception e) {
             showSnackBar(view, "Movie is already recorded");

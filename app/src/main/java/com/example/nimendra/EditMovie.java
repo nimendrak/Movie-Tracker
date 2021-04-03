@@ -36,6 +36,7 @@ public class EditMovie extends AppCompatActivity {
     EditText getMovieReviews;
 
     TextView movieIndex;
+    RatingBar ratingBar;
 
     @SuppressLint("DefaultLocale")
     @Override
@@ -67,11 +68,11 @@ public class EditMovie extends AppCompatActivity {
         getMovieYear.setText(currentMovieData.get(2));
         getMovieDirector.setText(currentMovieData.get(3));
         getMovieCast.setText(currentMovieData.get(4));
-//        getMovieRatings.setText(currentMovieData.get(5));
         getMovieReviews.setText(currentMovieData.get(6));
 
-        RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        ratingBar.setRating(10.0f);
+        ratingBar = findViewById(R.id.ratingBar);
+        ratingBar.setRating(Float.parseFloat(currentMovieData.get(5)));
+//        ratingBar.setRating(10.0f);
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
@@ -80,13 +81,15 @@ public class EditMovie extends AppCompatActivity {
         });
     }
 
-    public void resetData(View view) {
-        getMovieTitle.getText().clear();
-        getMovieYear.getText().clear();
-        getMovieDirector.getText().clear();
-        getMovieCast.getText().clear();
-        getMovieRatings.getText().clear();
-        getMovieReviews.getText().clear();
+    public void undoData(View view) {
+        getMovieTitle.setText(currentMovieData.get(1));
+        getMovieYear.setText(currentMovieData.get(2));
+        getMovieDirector.setText(currentMovieData.get(3));
+        getMovieCast.setText(currentMovieData.get(4));
+        ratingBar.setRating(Float.parseFloat(currentMovieData.get(5)));
+        getMovieReviews.setText(currentMovieData.get(6));
+
+        movieDatabase.showSnackBar(findViewById(R.id.edit_movie), "Movie Data Rollback to Original");
     }
 
     @SuppressLint("DefaultLocale")
@@ -96,16 +99,15 @@ public class EditMovie extends AppCompatActivity {
             int year = Integer.parseInt(getMovieYear.getText().toString());
             String director = getMovieDirector.getText().toString();
             String cast = getMovieCast.getText().toString();
-            int ratings = Integer.parseInt(getMovieRatings.getText().toString());
+            int ratings = (int) ratingBar.getRating();
             String reviews = getMovieReviews.getText().toString();
 
             Log.i(LOG_TAG, "Validated ans -> " + year);
 
             movieDatabase.updateMovieData(currentMovieData.get(0), title, year, director, cast, ratings, reviews, findViewById(R.id.edit_movie));
             movieIndex.setText(String.format("%03d", movieDatabase.getDbSize()));
-            resetData(findViewById(R.id.register_movie));
         } else {
-            movieDatabase.showSnackBar(findViewById(R.id.register_movie), "Prompted Year is below 1895");
+            movieDatabase.showSnackBar(findViewById(R.id.edit_movie), "Prompted Year is below 1895");
             getMovieYear.getText().clear();
         }
     }
