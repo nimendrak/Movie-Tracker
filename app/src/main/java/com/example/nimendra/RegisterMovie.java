@@ -7,7 +7,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -17,8 +16,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.nimendra.util.MovieDatabase;
-
-import java.util.Arrays;
 
 public class RegisterMovie extends AppCompatActivity {
 
@@ -58,24 +55,30 @@ public class RegisterMovie extends AppCompatActivity {
         getMovieCast.setText("Alexander Skarsg˚ard, Millie Bobby Brown, Rebecca Hall, Brian Tyree Henry, Shun Oguri, Eiza Gonz´alez, Julian Dennison");
         getMovieRatings.setText("6");
         getMovieReviews.setText("A fast-paced action movie keeping you in suspense for 90 minutes. Excellent performance by Shun Oguri.");
+
+        validateYear(getMovieYear);
     }
 
     @SuppressLint("DefaultLocale")
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void registerMovie(View view) {
-        String title = getMovieTitle.getText().toString();
-//        int year = getInput(getMovieYear);
-        int year = Integer.parseInt(getMovieYear.getText().toString());
-        String director = getMovieDirector.getText().toString();
-        String cast = getMovieCast.getText().toString();
-        int ratings = Integer.parseInt(getMovieRatings.getText().toString());
-        String reviews = getMovieReviews.getText().toString();
+        if (validateYear(getMovieYear)) {
+            String title = getMovieTitle.getText().toString();
+            int year = Integer.parseInt(getMovieYear.getText().toString());
+            String director = getMovieDirector.getText().toString();
+            String cast = getMovieCast.getText().toString();
+            int ratings = Integer.parseInt(getMovieRatings.getText().toString());
+            String reviews = getMovieReviews.getText().toString();
 
-        movieDatabase.insertData(title, year, director, cast, ratings, reviews, findViewById(R.id.register_movie));
+            Log.i(LOG_TAG, "Validated ans -> " + year);
 
-        movieIndex.setText(String.format("%03d", movieDatabase.getDbSize()));
-
-        resetData(findViewById(R.id.register_movie));
+            movieDatabase.insertData(title, year, director, cast, ratings, reviews, findViewById(R.id.register_movie));
+            movieIndex.setText(String.format("%03d", movieDatabase.getDbSize()));
+            resetData(findViewById(R.id.register_movie));
+        } else {
+            movieDatabase.showSnackBar(findViewById(R.id.register_movie), "Prompted Year is below 1895");
+            getMovieYear.getText().clear();
+        }
     }
 
     public void resetData(View view) {
@@ -87,30 +90,33 @@ public class RegisterMovie extends AppCompatActivity {
         getMovieReviews.getText().clear();
     }
 
-    // Get input from the EditText and holds it on a array of 1 element
+    // Get input and validate from the EditText and holds it on a array of 1 element
     // Once user clicks the submit button, soft keyboard will disappear
-    public int getInput(final EditText holder) {
-        final String[] answer = new String[1];
+    public boolean validateYear(final EditText holder) {
+        final int[] validatedAnswer = new int[1];
         final InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
 
         if (holder != null) {
-            holder.setOnEditorActionListener
-                    (new TextView.OnEditorActionListener() {
-                        @Override
-                        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                            boolean handled = false;
-                            if (actionId == EditorInfo.IME_ACTION_SEND) {
-                                if (Integer.parseInt(holder.getText().toString()) > 1895) {
-                                    answer[0] = String.valueOf(holder.getText());
-                                }
-                                imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-                                handled = true;
-                            }
-                            return handled;
-                        }
-                    });
+            // In case, user didn't consume imOptions
+            final int tempYear = Integer.parseInt(holder.getText().toString());
+            validatedAnswer[0] = tempYear;
 
+            // Using imOption
+            holder.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    boolean handled = false;
+                    if (actionId == EditorInfo.IME_ACTION_SEND) {
+                        if (tempYear > 1895)
+                            validatedAnswer[0] = tempYear;
+                        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                        handled = true;
+                    }
+                    return handled;
+                }
+            });
         }
-        return Integer.parseInt(answer[0]);
+        return validatedAnswer[0] > 1895;
     }
+
 }
