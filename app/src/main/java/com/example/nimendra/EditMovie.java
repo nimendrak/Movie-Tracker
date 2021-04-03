@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.nimendra.util.MovieDatabase;
@@ -66,8 +67,17 @@ public class EditMovie extends AppCompatActivity {
         getMovieYear.setText(currentMovieData.get(2));
         getMovieDirector.setText(currentMovieData.get(3));
         getMovieCast.setText(currentMovieData.get(4));
-        getMovieRatings.setText(currentMovieData.get(5));
+//        getMovieRatings.setText(currentMovieData.get(5));
         getMovieReviews.setText(currentMovieData.get(6));
+
+        RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        ratingBar.setRating(10.0f);
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                Log.i(LOG_TAG, "onRatingChanged: rating : " + rating);
+            }
+        });
     }
 
     public void resetData(View view) {

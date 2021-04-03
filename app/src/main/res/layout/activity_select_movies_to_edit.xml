@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/edit_movies_menu"
-    tools:context=".EditMoviesMenu">
+    tools:context=".SelectMovieToEdit">
 
     <TextView
         android:id="@+id/register_movie_title"

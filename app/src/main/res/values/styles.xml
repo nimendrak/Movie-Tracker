@@ -27,4 +27,9 @@
         <item name="android:padding">10dp</item>
     </style>
 
+    <style name="ratingBar" parent="@android:style/Widget.RatingBar">
+        <item name="colorControlNormal">#FFC542</item>
+        <item name="colorControlActivated">#EA783F</item>
+    </style>
+
 </resources>

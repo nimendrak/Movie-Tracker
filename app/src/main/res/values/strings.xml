@@ -45,5 +45,7 @@
     <string name="favored_checkBoxLabel">Favored</string>
     <string name="to_be_removed_checkBoxLabel">To be Removed</string>
     <string name="edit_movie_data_title">Edit Movie Data</string>
+    <string name="update_btnLabel">Update</string>
+    <string name="edit_movie_title">Edit Movie</string>
 
 </resources>

@@ -13,7 +13,7 @@
         <activity android:name=".Ratings" />
         <activity android:name=".Search" />
         <activity android:name=".FavoriteMovies" />
-        <activity android:name=".EditMoviesMenu" />
+        <activity android:name=".SelectMovieToEdit" />
         <activity android:name=".DisplayMovies" />
         <activity android:name=".RegisterMovie" />
         <activity android:name=".MainActivity">

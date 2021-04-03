@@ -19,7 +19,7 @@ import com.example.nimendra.util.MovieDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EditMoviesMenu extends AppCompatActivity {
+public class SelectMovieToEdit extends AppCompatActivity {
 
     // Class name for Log tag
     private static final String LOG_TAG = DisplayMovies.class.getSimpleName();
@@ -33,7 +33,7 @@ public class EditMoviesMenu extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_movies_menu);
+        setContentView(R.layout.activity_select_movies_to_edit);
 
         movieDatabase = MovieDatabase.getInstance(this);
         movieDatabase.showAll();
@@ -67,7 +67,7 @@ public class EditMoviesMenu extends AppCompatActivity {
 
     private class CustomAdapter extends ArrayAdapter<String> {
         public CustomAdapter() {
-            super(EditMoviesMenu.this, R.layout.list_view_row_des1, movieTitles);
+            super(SelectMovieToEdit.this, R.layout.list_view_row_des1, movieTitles);
         }
 
         @SuppressLint("InflateParams")
