@@ -27,8 +27,6 @@ public class EditMoviesMenu extends AppCompatActivity {
     private List<String> movieTitles;
     private List<String> indexOfMovies = new ArrayList<>();
 
-    private ArrayList<Boolean> checkboxesStatus = new ArrayList<>();
-
     MovieDatabase movieDatabase;
 
     @SuppressLint("DefaultLocale")
@@ -56,8 +54,7 @@ public class EditMoviesMenu extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println((String) listView.getSelectedItem());
-                intent.putExtra("selected_item", (String) listView.getSelectedItem());
+                intent.putExtra("selected_item", listView.getAdapter().getItem(position).toString());
                 startActivity(intent);
             }
         });

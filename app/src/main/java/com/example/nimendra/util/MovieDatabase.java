@@ -115,6 +115,29 @@ public class MovieDatabase extends SQLiteOpenHelper {
         return favoriteMovieList;
     }
 
+    public List<String> retrieveSpecificMovie(String movieTitle) {
+        myDb = getReadableDatabase();
+        String query = "SELECT * FROM " + DB_TABLE + " where mov_title='" + movieTitle + "'";
+        Cursor cursor = myDb.rawQuery(query, null);
+
+        List<String> movieData = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            movieData.add(String.valueOf(cursor.getInt(cursor.getColumnIndex("_id"))));
+            movieData.add(cursor.getString(cursor.getColumnIndex("mov_title")));
+            movieData.add(cursor.getString(cursor.getColumnIndex("mov_year")));
+            movieData.add(cursor.getString(cursor.getColumnIndex("mov_director")));
+            movieData.add(cursor.getString(cursor.getColumnIndex("mov_cast")));
+            movieData.add(cursor.getString(cursor.getColumnIndex("mov_ratings")));
+            movieData.add(cursor.getString(cursor.getColumnIndex("mov_reviews")));
+            movieData.add(cursor.getString(cursor.getColumnIndex("isFavourite")));
+        }
+
+        cursor.close();
+        myDb.close();
+
+        return movieData;
+    }
+
     public void delete(String title) {
         try {
             myDb = getWritableDatabase();
@@ -125,21 +148,23 @@ public class MovieDatabase extends SQLiteOpenHelper {
         }
     }
 
-    public void update(String emp_id, String emp_name, String emp_address, String emp_age, String emp_position) {
+    public void updateMovieData(String id, String title, int year, String director, String cast, int ratings, String reviews, View view) {
         try {
             myDb = getWritableDatabase();
 
             ContentValues cv = new ContentValues();
-            cv.put("emp_name", emp_name);
-            cv.put("emp_address", emp_address);
-            cv.put("emp_age", emp_age);
-            cv.put("emp_position", emp_position);
+            cv.put("mov_title", title);
+            cv.put("mov_year", year);
+            cv.put("mov_director", director);
+            cv.put("mov_cast", cast);
+            cv.put("mov_ratings", ratings);
+            cv.put("mov_reviews", reviews);
 
-            myDb.update(DB_TABLE, cv, "emp_id = ?", new String[]{emp_id});
-            Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show();
+            myDb.update(DB_TABLE, cv, "_id = ?", new String[]{id});
+            showSnackBar(view, "Movie Data Updated");
 
         } catch (Exception e) {
-            Toast.makeText(context, "Could not find ID", Toast.LENGTH_SHORT).show();
+            showSnackBar(view, "ID not available");
         }
     }
 

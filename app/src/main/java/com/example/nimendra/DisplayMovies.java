@@ -27,9 +27,9 @@ public class DisplayMovies extends AppCompatActivity {
     private static final String LOG_TAG = DisplayMovies.class.getSimpleName();
 
     private List<String> movieTitles;
-    private List<String> favMoviesTitles = new ArrayList<>();
+    private final List<String> favMoviesTitles = new ArrayList<>();
 
-    private ArrayList<Boolean> checkboxesStatus = new ArrayList<>();
+    private final ArrayList<Boolean> checkboxesStatus = new ArrayList<>();
 
     MovieDatabase movieDatabase;
 
@@ -65,10 +65,15 @@ public class DisplayMovies extends AppCompatActivity {
 
         SharedPreferences preferences = getSharedPreferences(DisplayMovies.class.getSimpleName(), Context.MODE_PRIVATE);
         SharedPreferences.Editor preferencesEditor = preferences.edit();
-        for (int i = 0; i < movieTitles.size(); i++) {
-            preferencesEditor.putBoolean(String.format("checkbox %s", i), checkboxesStatus.get(i));
+
+        try {
+            for (int i = 0; i < movieTitles.size(); i++) {
+                preferencesEditor.putBoolean(String.format("checkbox %s", i), checkboxesStatus.get(i));
+            }
+            preferencesEditor.apply();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        preferencesEditor.apply();
     }
 //
 //    @Override
