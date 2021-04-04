@@ -48,5 +48,6 @@
     <string name="update_btnLabel">Update</string>
     <string name="edit_movie_title">Edit Movie</string>
     <string name="undo_btnLabel">Undo</string>
+    <string name="search_movies_titles">Search Movies</string>
 
 </resources>
