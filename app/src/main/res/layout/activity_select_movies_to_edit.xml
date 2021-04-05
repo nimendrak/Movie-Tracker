@@ -5,11 +5,11 @@
     android:background="#2E2E2E"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/edit_movies_menu"
+    android:id="@+id/search_movie_activity"
     tools:context=".SelectMovieToEdit">
 
     <TextView
-        android:id="@+id/register_movie_title"
+        android:id="@+id/activity_title"
         style="@style/titleHolder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_movie_title"
+        app:layout_constraintTop_toBottomOf="@+id/activity_title"
         app:layout_constraintVertical_bias="0.274" >
 
         <LinearLayout

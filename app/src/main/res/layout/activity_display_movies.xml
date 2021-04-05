@@ -9,7 +9,7 @@
     tools:context=".DisplayMovies">
 
     <TextView
-        android:id="@+id/register_movie_title"
+        android:id="@+id/activity_title"
         style="@style/titleHolder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_movie_title"
+        app:layout_constraintTop_toBottomOf="@+id/activity_title"
         app:layout_constraintVertical_bias="0.274" >
 
         <LinearLayout
@@ -57,7 +57,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <Button
-        android:id="@+id/save_btn"
+        android:id="@+id/search_movie_btn"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -98,7 +98,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/nestScrollView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_movie_title"
+        app:layout_constraintTop_toBottomOf="@+id/activity_title"
         app:layout_constraintVertical_bias="0.555" />
 
     <CheckBox
@@ -113,7 +113,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/nestScrollView"
         app:layout_constraintStart_toEndOf="@+id/favored_checkBox"
-        app:layout_constraintTop_toBottomOf="@+id/register_movie_title"
+        app:layout_constraintTop_toBottomOf="@+id/activity_title"
         app:layout_constraintVertical_bias="0.555" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

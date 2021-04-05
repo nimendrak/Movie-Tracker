@@ -5,11 +5,11 @@
     android:background="#2E2E2E"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/edit_movies_menu"
+    android:id="@+id/search_movie_activity"
     tools:context=".Search">
 
     <TextView
-        android:id="@+id/register_movie_title"
+        android:id="@+id/activity_title"
         style="@style/titleHolder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,24 +18,24 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/save_btn"
+        android:id="@+id/search_movie_btn"
         android:layout_width="125dp"
         android:layout_height="44dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/button_ripple_effect"
-        android:onClick="searchAct"
+        android:onClick="searchMovies"
         android:text="@string/search_btnLabel"
         android:textColor="#2E2E2E"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/title_input"
-        app:layout_constraintTop_toBottomOf="@+id/register_movie_title" />
+        app:layout_constraintStart_toEndOf="@+id/search_input"
+        app:layout_constraintTop_toBottomOf="@+id/activity_title" />
 
     <EditText
-        android:id="@+id/title_input"
+        android:id="@+id/search_input"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -49,7 +49,7 @@
         android:textColor="#FFFFFF"
         android:textColorHint="#80FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_movie_title" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_title" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestScrollView"
@@ -62,7 +62,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_movie_title"
+        app:layout_constraintTop_toBottomOf="@+id/activity_title"
         app:layout_constraintVertical_bias="0.75">
 
         <LinearLayout

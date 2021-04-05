@@ -138,6 +138,32 @@ public class MovieDatabase extends SQLiteOpenHelper {
         return movieData;
     }
 
+    public List<Movie> getSearchResults(String searchInput) {
+        myDb = getReadableDatabase();
+        String query = "SELECT * FROM " + DB_TABLE + " where mov_title like ? or mov_director like ? or mov_cast like ?";
+        String[] params = {"%" + searchInput + "%", "%" + searchInput + "%", "%" + searchInput + "%"};
+        Cursor cursor = myDb.rawQuery(query, params);
+
+        List<Movie> movieData = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            int id = cursor.getInt(cursor.getColumnIndex("_id"));
+            String title = cursor.getString(cursor.getColumnIndex("mov_title"));
+            int year = cursor.getInt(cursor.getColumnIndex("mov_year"));
+            String director = cursor.getString(cursor.getColumnIndex("mov_director"));
+            String cast = cursor.getString(cursor.getColumnIndex("mov_cast"));
+            int ratings = cursor.getInt(cursor.getColumnIndex("mov_ratings"));
+            String reviews = cursor.getString(cursor.getColumnIndex("mov_reviews"));
+            int isFav = cursor.getInt(cursor.getColumnIndex("isFavourite"));
+
+            movieData.add(new Movie(id, title, year, director, cast, ratings, reviews, isFav));
+        }
+
+        cursor.close();
+        myDb.close();
+
+        return movieData;
+    }
+
     public void delete(String title) {
         try {
             myDb = getWritableDatabase();

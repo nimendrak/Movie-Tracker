@@ -40,7 +40,7 @@ public class RegisterMovie extends AppCompatActivity {
 
         movieDatabase = MovieDatabase.getInstance(this);
 
-        getMovieTitle = findViewById(R.id.title_input);
+        getMovieTitle = findViewById(R.id.search_input);
         getMovieYear = findViewById(R.id.year_input);
         getMovieDirector = findViewById(R.id.director_input);
         getMovieCast = findViewById(R.id.cast_input);
