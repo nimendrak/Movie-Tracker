@@ -17,6 +17,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/save_btn"
+        android:layout_width="125dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/button_ripple_effect"
+        android:onClick="searchAct"
+        android:text="@string/search_btnLabel"
+        android:textColor="#2E2E2E"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/title_input"
+        app:layout_constraintTop_toBottomOf="@+id/register_movie_title" />
+
+    <EditText
+        android:id="@+id/title_input"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:autofillHints=""
+        android:background="@drawable/rounded_text"
+        android:ems="10"
+        android:hint="@string/search_editText_hint"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#80FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_movie_title" />
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestScrollView"
         android:layout_width="0dp"
@@ -29,7 +63,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_movie_title"
-        app:layout_constraintVertical_bias="0.274" >
+        app:layout_constraintVertical_bias="0.75">
 
         <LinearLayout
             android:id="@+id/display_linearLayout"
@@ -41,7 +75,6 @@
                 android:id="@+id/list_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="top"
                 android:layout_marginTop="5dp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

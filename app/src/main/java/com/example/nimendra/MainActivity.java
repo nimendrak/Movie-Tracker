@@ -44,4 +44,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SelectMovieToEdit.class);
         startActivity(intent);
     }
+
+    public void searchMovies(View view) {
+        Intent intent = new Intent(this, Search.class);
+        startActivity(intent);
+    }
 }
