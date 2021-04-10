@@ -24,7 +24,6 @@ import android.widget.TextView;
 import com.example.nimendra.util.Movie;
 import com.example.nimendra.util.MovieDatabase;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Search extends AppCompatActivity {
@@ -34,7 +33,6 @@ public class Search extends AppCompatActivity {
 
     MovieDatabase movieDatabase;
     List<Movie> searchResults;
-    List<String> indexOfMovies = new ArrayList<>();
 
     EditText getSearchChar;
     Button searchMovie;
@@ -75,13 +73,11 @@ public class Search extends AppCompatActivity {
         listView.setDividerHeight(1);
     }
 
-    @SuppressLint("DefaultLocale")
-    public void searchMovies(View view) {
+    public void search(View view) {
+        Log.i(LOG_TAG, getSearchChar.getText().toString());
         try {
-            Log.i(LOG_TAG, inputStr);
+            searchResults = movieDatabase.getSearchResults(getSearchChar.getText().toString());
 
-            searchResults = movieDatabase.getSearchResults(inputStr);
-            
             customAdapter = new CustomAdapter();
             listView.setAdapter(customAdapter);
         } catch (Exception e) {
@@ -112,6 +108,7 @@ public class Search extends AppCompatActivity {
                 }
             });
         }
+        System.out.println(strInputs[0]);
         return strInputs[0];
     }
 

@@ -25,7 +25,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/button_ripple_effect"
-        android:onClick="searchMovies"
+        android:onClick="search"
         android:text="@string/search_btnLabel"
         android:textColor="#2E2E2E"
         android:textSize="16sp"

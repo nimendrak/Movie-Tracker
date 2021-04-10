@@ -121,6 +121,7 @@ public class MovieDatabase extends SQLiteOpenHelper {
         Cursor cursor = myDb.rawQuery(query, null);
 
         List<String> movieData = new ArrayList<>();
+
         if (cursor.moveToFirst()) {
             movieData.add(String.valueOf(cursor.getInt(cursor.getColumnIndex("_id"))));
             movieData.add(cursor.getString(cursor.getColumnIndex("mov_title")));
@@ -140,26 +141,42 @@ public class MovieDatabase extends SQLiteOpenHelper {
 
     public List<Movie> getSearchResults(String searchInput) {
         myDb = getReadableDatabase();
+
         String query = "SELECT * FROM " + DB_TABLE + " where mov_title like ? or mov_director like ? or mov_cast like ?";
         String[] params = {"%" + searchInput + "%", "%" + searchInput + "%", "%" + searchInput + "%"};
         Cursor cursor = myDb.rawQuery(query, params);
 
         List<Movie> movieData = new ArrayList<>();
-        if (cursor.moveToFirst()) {
-            int id = cursor.getInt(cursor.getColumnIndex("_id"));
-            String title = cursor.getString(cursor.getColumnIndex("mov_title"));
-            int year = cursor.getInt(cursor.getColumnIndex("mov_year"));
-            String director = cursor.getString(cursor.getColumnIndex("mov_director"));
-            String cast = cursor.getString(cursor.getColumnIndex("mov_cast"));
-            int ratings = cursor.getInt(cursor.getColumnIndex("mov_ratings"));
-            String reviews = cursor.getString(cursor.getColumnIndex("mov_reviews"));
-            int isFav = cursor.getInt(cursor.getColumnIndex("isFavourite"));
 
-            movieData.add(new Movie(id, title, year, director, cast, ratings, reviews, isFav));
+        // Clear before repopulating
+        movieData.clear();
+
+        try {
+            if (cursor != null) {
+                cursor.moveToFirst();
+                for (int i = 0; i < cursor.getCount(); i++) {
+                    movieData.add(new Movie(
+                            cursor.getInt(0),
+                            cursor.getString(1),
+                            cursor.getInt(2),
+                            cursor.getString(3),
+                            cursor.getString(4),
+                            cursor.getInt(5),
+                            cursor.getString(6),
+                            cursor.getInt(7)
+                    ));
+                    cursor.moveToNext();
+                }
+                cursor.close();
+                myDb.close();
+                Log.d("Search Result", movieData.toString());
+                return movieData;
+            }
+            Log.d("Search Result", movieData.toString());
+            return movieData;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        cursor.close();
-        myDb.close();
 
         return movieData;
     }
