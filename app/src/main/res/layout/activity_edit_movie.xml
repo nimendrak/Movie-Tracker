@@ -95,6 +95,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ratings_textView" />
 
+    <TextView
+        android:id="@+id/review_textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="68dp"
+        android:text="@string/movie_category_textView"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/review_textView" />
+
     <EditText
         android:id="@+id/search_input"
         android:layout_width="0dp"
@@ -265,5 +278,17 @@
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/movie_index_label"
         app:layout_constraintTop_toBottomOf="@+id/activity_title" />
+
+    <CheckBox
+        android:id="@+id/isFav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="8dp"
+        android:text="Favorite Movie"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/review_textView2"
+        app:layout_constraintTop_toBottomOf="@+id/reviews_input" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

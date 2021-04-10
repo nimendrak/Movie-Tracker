@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,9 @@ import java.util.List;
 
 public class Search extends AppCompatActivity {
 
+    // Class name for Log tag
+    private static final String LOG_TAG = Search.class.getSimpleName();
+
     MovieDatabase movieDatabase;
     List<Movie> searchResults;
     List<String> indexOfMovies = new ArrayList<>();
@@ -37,6 +41,8 @@ public class Search extends AppCompatActivity {
 
     CustomAdapter customAdapter;
     ListView listView;
+
+    String inputStr;
 
     @SuppressLint("DefaultLocale")
     @Override
@@ -48,7 +54,6 @@ public class Search extends AppCompatActivity {
         searchMovie = findViewById(R.id.search_movie_btn);
 
         movieDatabase = MovieDatabase.getInstance(this);
-        movieDatabase.showAll();
 
         listView = findViewById(R.id.list_view);
 
@@ -56,11 +61,13 @@ public class Search extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println("When Clicked -> " + listView.getAdapter().getItem(position).toString());
                 intent.putExtra("selected_item", listView.getAdapter().getItem(position).toString());
                 startActivity(intent);
             }
         });
+
+        inputStr = getSearchInput(getSearchChar);
+        Log.i(LOG_TAG, inputStr);
 
         // Set ListView divider color programmatically
         int[] colors = {0, 0xFFFFFFFF, 0};
@@ -71,16 +78,10 @@ public class Search extends AppCompatActivity {
     @SuppressLint("DefaultLocale")
     public void searchMovies(View view) {
         try {
-            String inputStr = getSearchInput(getSearchChar);
+            Log.i(LOG_TAG, inputStr);
 
             searchResults = movieDatabase.getSearchResults(inputStr);
-            System.out.println(searchResults);
-
-            indexOfMovies.clear();
-            for (int i = 0; i < searchResults.size(); i++) {
-                indexOfMovies.add(String.format("%03d", (i + 1)));
-            }
-            System.out.println(indexOfMovies);
+            
             customAdapter = new CustomAdapter();
             listView.setAdapter(customAdapter);
         } catch (Exception e) {
@@ -119,7 +120,7 @@ public class Search extends AppCompatActivity {
             super(Search.this, R.layout.list_view_row_des2, searchResults);
         }
 
-        @SuppressLint("InflateParams")
+        @SuppressLint({"InflateParams", "DefaultLocale"})
         @Override
         public View getView(final int position, View view, ViewGroup parent) {
             View rowView = view;
@@ -130,7 +131,7 @@ public class Search extends AppCompatActivity {
             TextView index = rowView.findViewById(R.id.index);
             TextView title = rowView.findViewById(R.id.title);
 
-            index.setText(indexOfMovies.get(position));
+            index.setText(String.format("%03d", searchResults.get(position).getId()));
             title.setText(searchResults.get(position).getTitle());
 
             return rowView;

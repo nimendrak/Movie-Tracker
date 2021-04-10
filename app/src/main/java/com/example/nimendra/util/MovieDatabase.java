@@ -174,10 +174,11 @@ public class MovieDatabase extends SQLiteOpenHelper {
         }
     }
 
-    public void updateMovieData(String id, String title, int year, String director, String cast, int ratings, String reviews, View view) {
+    public void updateMovieData(String id, String title, int year, String director, String cast, int ratings, String reviews, int isFav, View view) {
         try {
             myDb = getWritableDatabase();
 
+            System.out.println(id);
             ContentValues cv = new ContentValues();
             cv.put("mov_title", title);
             cv.put("mov_year", year);
@@ -185,6 +186,7 @@ public class MovieDatabase extends SQLiteOpenHelper {
             cv.put("mov_cast", cast);
             cv.put("mov_ratings", ratings);
             cv.put("mov_reviews", reviews);
+            cv.put("isFavourite", isFav);
 
             myDb.update(DB_TABLE, cv, "_id = ?", new String[]{id});
             showSnackBar(view, "Movie Data Updated");

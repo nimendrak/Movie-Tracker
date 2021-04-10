@@ -10,6 +10,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -34,6 +36,7 @@ public class EditMovie extends AppCompatActivity {
     EditText getMovieCast;
     EditText getMovieRatings;
     EditText getMovieReviews;
+    CheckBox isFavorite;
 
     TextView movieIndex;
     RatingBar ratingBar;
@@ -52,6 +55,7 @@ public class EditMovie extends AppCompatActivity {
         getMovieCast = findViewById(R.id.cast_input);
         getMovieRatings = findViewById(R.id.ratings_input);
         getMovieReviews = findViewById(R.id.reviews_input);
+        isFavorite = findViewById(R.id.isFav);
 
         movieIndex = findViewById(R.id.movie_index);
 
@@ -79,6 +83,27 @@ public class EditMovie extends AppCompatActivity {
                 Log.i(LOG_TAG, "onRatingChanged: rating : " + rating);
             }
         });
+
+        if (Integer.parseInt(currentMovieData.get(7)) == 1) {
+            isFavorite.setChecked(true);
+            isFavorite.setText(R.string.fav_movie_textView);
+        } else {
+            isFavorite.setChecked(false);
+            isFavorite.setText(R.string.not_fav_movie_textView);
+        }
+
+        // Change isFav text according to the state of the check box
+        isFavorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    isFavorite.setText(R.string.fav_movie_textView);
+                } else {
+                    isFavorite.setText(R.string.not_fav_movie_textView);
+                }
+
+            }
+        });
     }
 
     public void undoData(View view) {
@@ -88,6 +113,14 @@ public class EditMovie extends AppCompatActivity {
         getMovieCast.setText(currentMovieData.get(4));
         ratingBar.setRating(Float.parseFloat(currentMovieData.get(5)));
         getMovieReviews.setText(currentMovieData.get(6));
+
+        if (Integer.parseInt(currentMovieData.get(7)) == 1) {
+            isFavorite.setChecked(true);
+            isFavorite.setText(R.string.fav_movie_textView);
+        } else {
+            isFavorite.setChecked(false);
+            isFavorite.setText(R.string.not_fav_movie_textView);
+        }
 
         movieDatabase.showSnackBar(findViewById(R.id.edit_movie), "Movie Data Rollback to Original");
     }
@@ -102,9 +135,14 @@ public class EditMovie extends AppCompatActivity {
             int ratings = (int) ratingBar.getRating();
             String reviews = getMovieReviews.getText().toString();
 
-            Log.i(LOG_TAG, "Validated ans -> " + year);
+            int isFav;
 
-            movieDatabase.updateMovieData(currentMovieData.get(0), title, year, director, cast, ratings, reviews, findViewById(R.id.edit_movie));
+            if (isFavorite.isChecked())
+                isFav = 1;
+            else
+                isFav = 0;
+
+            movieDatabase.updateMovieData(currentMovieData.get(0), title, year, director, cast, ratings, reviews, isFav, findViewById(R.id.edit_movie));
             movieIndex.setText(String.format("%03d", movieDatabase.getDbSize()));
         } else {
             movieDatabase.showSnackBar(findViewById(R.id.edit_movie), "Prompted Year is below 1895");

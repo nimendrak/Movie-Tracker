@@ -74,16 +74,6 @@ public class FavoriteMovies extends AppCompatActivity {
         preferencesEditor.apply();
     }
 
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//
-//        ListView listView = findViewById(R.id.list_view);
-//        listView.removeAllViewsInLayout();
-//
-//        Log.i(LOG_TAG, "Destroyed");
-//    }
-
     private class CustomAdapter extends ArrayAdapter<String> {
         public CustomAdapter() {
             super(FavoriteMovies.this, R.layout.list_view_row_des1, favMoviesTitles);

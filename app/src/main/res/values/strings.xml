@@ -54,5 +54,8 @@
     <string name="search_movies_titles">Search Movies</string>
     <string name="search_editText_hint">Search</string>
     <string name="search_btnLabel">Lookup</string>
+    <string name="movie_category_textView">Movie Category</string>
+    <string name="fav_movie_textView">Favorite Movie</string>
+    <string name="not_fav_movie_textView">Not a Favorite Movie</string>
 
 </resources>
