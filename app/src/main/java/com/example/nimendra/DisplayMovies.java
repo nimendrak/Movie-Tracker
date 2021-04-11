@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.nimendra.util.Movie;
 import com.example.nimendra.util.MovieDatabase;
 
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ public class DisplayMovies extends AppCompatActivity {
     // Class name for Log tag
     private static final String LOG_TAG = DisplayMovies.class.getSimpleName();
 
-    private List<String> movieTitles;
+    private List<String> movieTitles = new ArrayList<>();
     private final List<String> favMoviesTitles = new ArrayList<>();
 
     private final ArrayList<Boolean> checkboxesStatus = new ArrayList<>();
@@ -41,13 +43,17 @@ public class DisplayMovies extends AppCompatActivity {
         movieDatabase = MovieDatabase.getInstance(this);
         movieDatabase.showAll();
 
-        // Movie titles list
-        movieTitles = movieDatabase.retrieveMoviesData();
+        // Generate movie titles list
+        List<Movie> movieData = movieDatabase.retrieveMoviesData();
 
-        SharedPreferences preferences = getSharedPreferences(DisplayMovies.class.getSimpleName(), Context.MODE_PRIVATE);
-        for (int i = 0; i < movieTitles.size(); i++) {
-            checkboxesStatus.add(preferences.getBoolean(String.format("checkbox %s", i), false));
+        for (Movie m : movieData) {
+            movieTitles.add(m.getTitle());
+
+            int isFav = m.getIsFav();
+            checkboxesStatus.add(isFav == 1);
         }
+
+        Log.i(LOG_TAG + "check box status", String.valueOf(checkboxesStatus));
 
         CustomAdapter adapter = new CustomAdapter();
         ListView listView = findViewById(R.id.list_view);
@@ -57,23 +63,6 @@ public class DisplayMovies extends AppCompatActivity {
         int[] colors = {0, 0xFFFFFFFF, 0};
         listView.setDivider(new GradientDrawable(GradientDrawable.Orientation.RIGHT_LEFT, colors));
         listView.setDividerHeight(2);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        SharedPreferences preferences = getSharedPreferences(DisplayMovies.class.getSimpleName(), Context.MODE_PRIVATE);
-        SharedPreferences.Editor preferencesEditor = preferences.edit();
-
-        try {
-            for (int i = 0; i < movieTitles.size(); i++) {
-                preferencesEditor.putBoolean(String.format("checkbox %s", i), checkboxesStatus.get(i));
-            }
-            preferencesEditor.apply();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private class CustomAdapter extends ArrayAdapter<String> {
@@ -96,18 +85,21 @@ public class DisplayMovies extends AppCompatActivity {
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    checkboxesStatus.set(position, isChecked);
-                    if (isChecked) {
-                        // Every iteration add only one to the arr
-                        if (!favMoviesTitles.contains(movieTitles.get(position))) {
-                            favMoviesTitles.add(movieTitles.get(position));
+                    try {
+                        checkboxesStatus.set(position, isChecked);
+                        if (isChecked) {
+                            // Every iteration add only one to the arr
+                            if (!favMoviesTitles.contains(movieTitles.get(position))) {
+                                favMoviesTitles.add(movieTitles.get(position));
+                            }
+                        } else {
+                            // Remove non checked movie
+                            favMoviesTitles.remove(movieTitles.get(position));
+                            checkboxesStatus.remove(checkboxesStatus.get(position));
                         }
-                    } else {
-                        // Remove non checked movie
-                        favMoviesTitles.remove(movieTitles.get(position));
-                        checkboxesStatus.remove(checkboxesStatus.get(position));
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    System.out.println(favMoviesTitles);
                 }
             });
             checkBox.setChecked(checkboxesStatus.get(position));

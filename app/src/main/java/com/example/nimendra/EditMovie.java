@@ -59,7 +59,7 @@ public class EditMovie extends AppCompatActivity {
 
         movieIndex = findViewById(R.id.movie_index);
 
-        // Get the switch_stats from EditMovieMenu
+        // Get the selected_item from EditMovieMenu
         String selectedMovie = getIntent().getExtras().getString("selected_item");
 
         // Get current data as a List<String>

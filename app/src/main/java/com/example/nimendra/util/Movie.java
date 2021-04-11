@@ -1,6 +1,6 @@
 package com.example.nimendra.util;
 
-public class Movie {
+public class Movie implements Comparable<Movie> {
     private int id;
     private String title;
     private int year;
@@ -81,8 +81,14 @@ public class Movie {
         return isFav;
     }
 
+
     @Override
     public String toString() {
         return title;
+    }
+
+    @Override
+    public int compareTo(Movie o) {
+        return this.title.compareTo(o.getTitle());
     }
 }

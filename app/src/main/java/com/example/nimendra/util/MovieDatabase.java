@@ -72,25 +72,36 @@ public class MovieDatabase extends SQLiteOpenHelper {
         }
     }
 
-    public List<String> retrieveMoviesData() {
+    public List<Movie> retrieveMoviesData() {
         myDb = getReadableDatabase();
         Cursor cursor = myDb.rawQuery("Select * from " + DB_TABLE, null);
 
-        List<String> movieTitles = new ArrayList<>();
-        if (cursor.moveToFirst()) {
-            movieTitles.add(cursor.getString(cursor.getColumnIndex("mov_title")));
-            while (cursor.moveToNext()) {
-                movieTitles.add(cursor.getString(cursor.getColumnIndex("mov_title")));
+        List<Movie> movieData = new ArrayList<>();
+        try {
+            if (cursor != null) {
+                cursor.moveToFirst();
+                for (int i = 0; i < cursor.getCount(); i++) {
+                    movieData.add(new Movie(
+                            cursor.getInt(0),
+                            cursor.getString(1),
+                            cursor.getInt(2),
+                            cursor.getString(3),
+                            cursor.getString(4),
+                            cursor.getInt(5),
+                            cursor.getString(6),
+                            cursor.getInt(7)
+                    ));
+                    cursor.moveToNext();
+                }
+                cursor.close();
+                myDb.close();
             }
+            Log.i("MovieData", movieData.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        Log.i("Database Movies -> ", String.valueOf(movieTitles));
-        cursor.close();
-        myDb.close();
-
-        // Sorting the movies alphabetically
-        Collections.sort(movieTitles);
-        return movieTitles;
+        Collections.sort(movieData);
+        return movieData;
     }
 
     public List<String> retrieveFavoriteData() {
@@ -255,6 +266,7 @@ public class MovieDatabase extends SQLiteOpenHelper {
         @SuppressLint("Recycle")
         Cursor cr = myDb.rawQuery("Select * from " + DB_TABLE, null);
 
+        System.out.println("ShowAll");
         while (cr.moveToNext()) {
             String s1 = cr.getString(0);
             String s2 = cr.getString(1);
@@ -265,7 +277,7 @@ public class MovieDatabase extends SQLiteOpenHelper {
             String s7 = cr.getString(6);
             String s8 = cr.getString(7);
 
-            System.out.println(s1 + " - " + s2 + ", isFavourite -> " + s8);
+            System.out.print(s1 + " - " + s2 + ", isFavourite -> " + s8 + " | ");
 
         }
         myDb.close();

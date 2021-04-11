@@ -14,18 +14,20 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.nimendra.util.Movie;
 import com.example.nimendra.util.MovieDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectMovieToEdit extends AppCompatActivity {
+public class SelectMovie extends AppCompatActivity {
 
     // Class name for Log tag
     private static final String LOG_TAG = DisplayMovies.class.getSimpleName();
 
-    private List<String> movieTitles;
-    private List<String> indexOfMovies = new ArrayList<>();
+    private List<String> movieTitles = new ArrayList<>();
+    private List<Integer> indexOfMovies = new ArrayList<>();
+    private int movieIndex = 1;
 
     MovieDatabase movieDatabase;
 
@@ -33,31 +35,51 @@ public class SelectMovieToEdit extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_movies_to_edit);
+        setContentView(R.layout.activity_select_movie);
 
         movieDatabase = MovieDatabase.getInstance(this);
         movieDatabase.showAll();
 
         // Movie titles list
-        movieTitles = movieDatabase.retrieveMoviesData();
+        // Generate movie titles list
+        List<Movie> movieData = movieDatabase.retrieveMoviesData();
+        for (Movie m : movieData) {
+            movieTitles.add(m.getTitle());
 
-        for (int i = 0; i < movieTitles.size(); i++) {
-            indexOfMovies.add(String.format("%03d", (i+1)));
+            // Update Index of the Movies
+            indexOfMovies.add(movieIndex);
+            movieIndex++;
         }
-        System.out.println(indexOfMovies);
 
         CustomAdapter customAdapter = new CustomAdapter();
         final ListView listView = findViewById(R.id.list_view);
         listView.setAdapter(customAdapter);
 
-        final Intent intent = new Intent(this, EditMovie.class);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                intent.putExtra("selected_item", listView.getAdapter().getItem(position).toString());
-                startActivity(intent);
-            }
-        });
+        TextView title = findViewById(R.id.activity_title);
+        final Intent intent;
+        if (getIntent().getExtras().getBoolean("ratings")) {
+            title.setText(R.string.ratings_title);
+
+            intent = new Intent(this, Ratings.class);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    intent.putExtra("selected_item", listView.getAdapter().getItem(position).toString());
+                    startActivity(intent);
+                }
+            });
+        } else {
+            title.setText(R.string.edit_movie_data_title);
+
+            intent = new Intent(this, EditMovie.class);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    intent.putExtra("selected_item", listView.getAdapter().getItem(position).toString());
+                    startActivity(intent);
+                }
+            });
+        }
 
         // Set ListView divider color programmatically
         int[] colors = {0, 0xFFFFFFFF, 0};
@@ -67,10 +89,10 @@ public class SelectMovieToEdit extends AppCompatActivity {
 
     private class CustomAdapter extends ArrayAdapter<String> {
         public CustomAdapter() {
-            super(SelectMovieToEdit.this, R.layout.list_view_row_des1, movieTitles);
+            super(SelectMovie.this, R.layout.list_view_row_des1, movieTitles);
         }
 
-        @SuppressLint("InflateParams")
+        @SuppressLint({"InflateParams", "DefaultLocale"})
         @Override
         public View getView(final int position, View view, ViewGroup parent) {
             View rowView = view;
@@ -81,7 +103,7 @@ public class SelectMovieToEdit extends AppCompatActivity {
             TextView index = rowView.findViewById(R.id.index);
             TextView title = rowView.findViewById(R.id.title);
 
-            index.setText(indexOfMovies.get(position));
+            index.setText(String.format("%03d", indexOfMovies.get(position)));
             title.setText(movieTitles.get(position));
 
             return rowView;

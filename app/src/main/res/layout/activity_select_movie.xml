@@ -6,14 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/search_movie_activity"
-    tools:context=".SelectMovieToEdit">
+    tools:context=".SelectMovie">
 
     <TextView
         android:id="@+id/activity_title"
         style="@style/titleHolder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/edit_movie_data_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,5 +44,18 @@
                 android:layout_marginTop="5dp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <TextView
+        android:id="@+id/alphabetical_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/alphabetical_textView_des"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nestScrollView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

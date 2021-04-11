@@ -58,5 +58,13 @@
     <string name="fav_movie_textView">Favorite Movie</string>
     <string name="not_fav_movie_textView">Not a Favorite Movie</string>
     <string name="null_search_results">No Search Results</string>
+    <string name="movie_poster_content_des">movie poster</string>
+    <string name="ratings_title">Ratings</string>
+    <string name="alphabetical_textView_des">*Movies are sorted Alphabetically</string>
+    <string name="imdb_data_textView_title">Fetched IMDB Data</string>
+
+
+    <!--  Fetch Data & Ratings  -->
+    <string name="MY_API_KEY">k_q8ltbyxn</string>
 
 </resources>

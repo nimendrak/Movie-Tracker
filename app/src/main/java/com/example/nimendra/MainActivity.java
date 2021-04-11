@@ -41,12 +41,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void editMovies(View view) {
-        Intent intent = new Intent(this, SelectMovieToEdit.class);
+        Intent intent = new Intent(this, SelectMovie.class);
+        intent.putExtra("ratings", false);
         startActivity(intent);
     }
 
     public void searchMovies(View view) {
         Intent intent = new Intent(this, Search.class);
+        startActivity(intent);
+    }
+
+    public void ratings(View view) {
+        Intent intent = new Intent(this, SelectMovie.class);
+        intent.putExtra("ratings", true);
         startActivity(intent);
     }
 }
