@@ -4,10 +4,10 @@ This was a Native Android Mobile Application which was developed as a Movie Trac
 - Movie Tracker has following features :
 
     - Register Movies 
-    - Add/ Remove Favorites Movies
+    - Add/Remove Favorites Movies
     - Edit Registered Movies
-    - Search Movies
-    - Get Ratings from IMDB API
+    - Search Movies in Device Database
+    - Get Ratings/Images/Search from IMDB API
     
 Every actions that user takes as mentioned in the above list, will be saved in SQLite Database. 
 
@@ -35,8 +35,8 @@ Every actions that user takes as mentioned in the above list, will be saved in S
     │       │   │               ├── SelectMovie.java
     │       │   │               └── utils
     │       │   │                   ├── CustomAdapter.java
-    │       │   │                   │      ├── CustomAdapter.java
-    │       │   │                   │      └── InjectImageToHolder.java
+    │       │   │                   │   ├── CustomAdapter.java
+    │       │   │                   │   └── InjectImageToHolder.java
     │       │   │                   ├── FetchData.java
     │       │   │                   ├── Movie.java
     │       │   │                   └── MovieDatabase.java
