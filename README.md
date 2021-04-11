@@ -7,9 +7,9 @@ This was a Native Android Mobile Application which was developed as a Movie Trac
     - Add/Remove Favorites Movies
     - Edit Registered Movies
     - Search Movies in Device Database
-    - Get Ratings/Images/Search from IMDB API
+    - Get Ratings/Images/Titles from IMDB API
     
-Every actions that user takes as mentioned in the above list, will be saved in SQLite Database. 
+Application uses a SQLite Database in order to store movie data. 
 
 ## Essential Directory Layout
 
@@ -56,3 +56,6 @@ Every actions that user takes as mentioned in the above list, will be saved in S
     ├── local.properties
     └── settings.gradle
     
+## Important Notes
+
+- IMDB API key is defined on res -> values -> strings as ```MY_API_KEY```. In order to do get data from IMDB, you need a valid API key.
