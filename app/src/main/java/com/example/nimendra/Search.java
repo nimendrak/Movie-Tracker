@@ -7,12 +7,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -86,7 +83,7 @@ public class Search extends AppCompatActivity {
             searchResults = movieDatabase.getSearchResults(getSearchChar.getText().toString());
 
             if (searchResults.isEmpty()) {
-                movieDatabase.showSnackBar(findViewById(R.id.search_movie_activity), "No Search Results");
+                movieDatabase.showSnackBar(findViewById(R.id.imdb_data), "No Search Results");
             }
 
             customAdapter = new CustomAdapter();

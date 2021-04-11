@@ -5,7 +5,7 @@
     android:background="#2E2E2E"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/search_movie_activity"
+    android:id="@+id/imdb_data"
     tools:context=".Ratings">
 
     <TextView
