@@ -38,7 +38,6 @@ public class SelectMovie extends AppCompatActivity {
         setContentView(R.layout.activity_select_movie);
 
         movieDatabase = MovieDatabase.getInstance(this);
-        movieDatabase.showAll();
 
         // Movie titles list
         // Generate movie titles list

@@ -1,9 +1,12 @@
 package com.example.nimendra;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         movieDatabase = MovieDatabase.getInstance(this);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void registerMovie(View view) {
         Intent intent = new Intent(this, RegisterMovie.class);
         startActivity(intent);

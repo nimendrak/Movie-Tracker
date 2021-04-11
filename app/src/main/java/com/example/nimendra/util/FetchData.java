@@ -73,28 +73,32 @@ public class FetchData extends AsyncTask<Void, Void, Void> {
             }
 
             // Fetch movie ratings from API
-//            for (String id : movieIds) {
-//                String baseUrlMovieRatings = "https://imdb-api.com/en/API/UserRatings/" + API_KEY + "/" + id;
-//                fetchData(baseUrlMovieRatings);
-//                JSONObject resultsRatings = new JSONObject(data);
-//
-//                String totalRatings = resultsRatings.getString("totalRating");
-//                movieRatings.add(totalRatings);
-//            }
+            for (String id : movieIds) {
+                String baseUrlMovieRatings = "https://imdb-api.com/en/API/Ratings/" + API_KEY + "/" + id;
+                fetchData(baseUrlMovieRatings);
 
-            if (movieRatings.isEmpty()) {
-                movieRatings.add("9.9");
+                JSONObject resultsRatings = new JSONObject(data);
+
+                String totalRatings = resultsRatings.getString("imDb");
+                movieRatings.add(totalRatings);
             }
-
         } catch (Exception ex) {
             ex.printStackTrace();
+
+            // delete later
+            if (movieRatings.isEmpty()) {
+                for (int i = 0; i < movieTitles.size(); i++) {
+                    movieRatings.add("9.9");
+                }
+            }
+
         }
 
         System.out.println();
         Log.i(LOG_TAG + " Movie IDs ", String.valueOf(movieIds));
         Log.i(LOG_TAG + " Movie Titles ", String.valueOf(movieTitles));
         Log.i(LOG_TAG + " Movie Ratings ", String.valueOf(movieRatings));
-        Log.i(LOG_TAG + " Movie Posters ", String.valueOf(moviePosters));
+        Log.i(LOG_TAG + " Movie Posters ", String.valueOf(moviePosters.size()));
 
         return null;
     }

@@ -55,11 +55,11 @@ public class CustomAdapter extends ArrayAdapter<String> {
             ImageView image = rowView.findViewById(R.id.image);
 
             text.setText(movieTitles.get(position));
-            rating.setText("Rating : " + movieRatings.get(position));
+            rating.setText("IMDB Rating : " + movieRatings.get(position));
             new DownloadImageTask(image).execute(moviePosters.get(position));
 
         } catch (Exception e) {
-//            e.printStackTrace();
+            e.printStackTrace();
         }
 
         return rowView;
