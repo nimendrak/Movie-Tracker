@@ -17,6 +17,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.nimendra.util.MovieDatabase;
+import com.example.nimendra.util.ShowSnackBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,7 +123,7 @@ public class EditMovie extends AppCompatActivity {
             isFavorite.setText(R.string.not_fav_movie_textView);
         }
 
-        movieDatabase.showSnackBar(findViewById(R.id.edit_movie), "Movie Data Rollback to Original");
+        new ShowSnackBar(findViewById(R.id.edit_movie), "Movie Data Rollback to Original");
     }
 
     @SuppressLint("DefaultLocale")
@@ -145,7 +146,7 @@ public class EditMovie extends AppCompatActivity {
             movieDatabase.updateMovieData(currentMovieData.get(0), title, year, director, cast, ratings, reviews, isFav, findViewById(R.id.edit_movie));
             movieIndex.setText(String.format("%03d", movieDatabase.getDbSize()));
         } else {
-            movieDatabase.showSnackBar(findViewById(R.id.edit_movie), "Prompted Year is below 1895");
+            new ShowSnackBar(findViewById(R.id.edit_movie), "Prompted Year is below 1895");
             getMovieYear.getText().clear();
         }
     }

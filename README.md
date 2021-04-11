@@ -26,20 +26,20 @@ Application uses a SQLite Database in order to store movie data.
     │       │   │   └── com
     │       │   │       └── example
     │       │   │           └── nimendra
+    │       │   │               ├── utils
+    │       │   │               │   ├── CustomAdapter.java
+    │       │   │               │   ├── FetchData.java
+    │       │   │               │   ├── InjectImages.java
+    │       │   │               │   ├── MovieDatabase.java
+    │       │   │               │   ├── MovieModel.java
+    │       │   │               │   └── ShowSnackBar.java
     │       │   │               ├── DisplayMovies.java
     │       │   │               ├── EditMovies.java
     │       │   │               ├── FavoriteMovies.java
     │       │   │               ├── MainActivity.java
     │       │   │               ├── Ratings.java
     │       │   │               ├── Search.java
-    │       │   │               ├── SelectMovie.java
-    │       │   │               └── utils
-    │       │   │                   ├── CustomAdapter.java
-    │       │   │                   │   ├── CustomAdapter.java
-    │       │   │                   │   └── InjectImageToHolder.java
-    │       │   │                   ├── FetchData.java
-    │       │   │                   ├── Movie.java
-    │       │   │                   └── MovieDatabase.java
+    │       │   │               └── SelectMovie.java
     │       │   └── res
     │       │       ├── drawable
     │       │       └── values

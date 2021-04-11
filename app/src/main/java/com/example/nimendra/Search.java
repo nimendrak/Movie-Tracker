@@ -18,8 +18,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.nimendra.util.Movie;
+import com.example.nimendra.util.MovieModel;
 import com.example.nimendra.util.MovieDatabase;
+import com.example.nimendra.util.ShowSnackBar;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class Search extends AppCompatActivity {
     private static final String LOG_TAG = Search.class.getSimpleName();
 
     MovieDatabase movieDatabase;
-    List<Movie> searchResults;
+    List<MovieModel> searchResults;
 
     EditText getSearchChar;
     Button searchMovie;
@@ -83,7 +84,7 @@ public class Search extends AppCompatActivity {
             searchResults = movieDatabase.getSearchResults(getSearchChar.getText().toString());
 
             if (searchResults.isEmpty()) {
-                movieDatabase.showSnackBar(findViewById(R.id.imdb_data), "No Search Results");
+                new ShowSnackBar(findViewById(R.id.imdb_data), "No Search Results");
             }
 
             customAdapter = new CustomAdapter();
@@ -95,7 +96,7 @@ public class Search extends AppCompatActivity {
         }
     }
 
-    private class CustomAdapter extends ArrayAdapter<Movie> {
+    private class CustomAdapter extends ArrayAdapter<MovieModel> {
         public CustomAdapter() {
             super(Search.this, R.layout.list_view_row_des2, searchResults);
         }

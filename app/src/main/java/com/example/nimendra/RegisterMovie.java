@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.nimendra.util.MovieDatabase;
+import com.example.nimendra.util.ShowSnackBar;
 
 public class RegisterMovie extends AppCompatActivity {
 
@@ -76,7 +77,7 @@ public class RegisterMovie extends AppCompatActivity {
             movieIndex.setText(String.format("%03d", movieDatabase.getDbSize()));
             resetData(findViewById(R.id.register_movie));
         } else {
-            movieDatabase.showSnackBar(findViewById(R.id.register_movie), "Prompted Year is below 1895");
+            new ShowSnackBar(findViewById(R.id.register_movie), "Prompted Year is below 1895");
             getMovieYear.getText().clear();
         }
     }

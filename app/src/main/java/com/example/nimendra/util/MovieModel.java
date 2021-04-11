@@ -1,6 +1,6 @@
 package com.example.nimendra.util;
 
-public class Movie implements Comparable<Movie> {
+public class MovieModel implements Comparable<MovieModel> {
     private int id;
     private String title;
     private int year;
@@ -10,7 +10,7 @@ public class Movie implements Comparable<Movie> {
     private String reviews;
     private int isFav;
 
-    public Movie(int id, String title, int year, String director, String cast, int ratings, String reviews, int isFav) {
+    public MovieModel(int id, String title, int year, String director, String cast, int ratings, String reviews, int isFav) {
         this.id = id;
         this.title = title;
         this.year = year;
@@ -88,7 +88,7 @@ public class Movie implements Comparable<Movie> {
     }
 
     @Override
-    public int compareTo(Movie o) {
+    public int compareTo(MovieModel o) {
         return this.title.compareTo(o.getTitle());
     }
 }

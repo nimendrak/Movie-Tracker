@@ -54,37 +54,12 @@ public class CustomAdapter extends ArrayAdapter<String> {
 
             text.setText(movieTitles.get(position));
             rating.setText("IMDB Rating : " + movieRatings.get(position));
-            new InjectImageToHolder(image).execute(moviePosters.get(position));
+            new InjectImages(image).execute(moviePosters.get(position));
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return rowView;
-    }
-}
-
-class InjectImageToHolder extends AsyncTask<String, Void, Bitmap> {
-    @SuppressLint("StaticFieldLeak")
-    ImageView imageView;
-
-    public InjectImageToHolder(ImageView bmImage) {
-        this.imageView = bmImage;
-    }
-
-    protected Bitmap doInBackground(String... urls) {
-        String url = urls[0];
-        Bitmap bitmap = null;
-        try {
-            InputStream in = new java.net.URL(url).openStream();
-            bitmap = BitmapFactory.decodeStream(in);
-        } catch (Exception e) {
-            Log.e("Error", e.getMessage());
-        }
-        return bitmap;
-    }
-
-    protected void onPostExecute(Bitmap result) {
-        imageView.setImageBitmap(result);
     }
 }

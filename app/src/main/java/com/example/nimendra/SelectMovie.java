@@ -14,7 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.nimendra.util.Movie;
+import com.example.nimendra.util.MovieModel;
 import com.example.nimendra.util.MovieDatabase;
 
 import java.util.ArrayList;
@@ -41,8 +41,8 @@ public class SelectMovie extends AppCompatActivity {
 
         // Movie titles list
         // Generate movie titles list
-        List<Movie> movieData = movieDatabase.retrieveMoviesData();
-        for (Movie m : movieData) {
+        List<MovieModel> movieModelData = movieDatabase.retrieveMoviesData();
+        for (MovieModel m : movieModelData) {
             movieTitles.add(m.getTitle());
 
             // Update Index of the Movies

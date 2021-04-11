@@ -3,8 +3,6 @@ package com.example.nimendra;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +15,7 @@ import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.nimendra.util.Movie;
+import com.example.nimendra.util.MovieModel;
 import com.example.nimendra.util.MovieDatabase;
 
 import java.util.ArrayList;
@@ -44,9 +42,9 @@ public class DisplayMovies extends AppCompatActivity {
         movieDatabase.showAll();
 
         // Generate movie titles list
-        List<Movie> movieData = movieDatabase.retrieveMoviesData();
+        List<MovieModel> movieModelData = movieDatabase.retrieveMoviesData();
 
-        for (Movie m : movieData) {
+        for (MovieModel m : movieModelData) {
             movieTitles.add(m.getTitle());
 
             int isFav = m.getIsFav();

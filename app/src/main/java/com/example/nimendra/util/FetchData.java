@@ -136,7 +136,7 @@ public class FetchData extends AsyncTask<Void, Void, Void> {
                     });
 
                     ImageView imageView = new ImageView(context);
-                    new InjectImageToHolder(imageView).execute(moviePosters.get(position));
+                    new InjectImages(imageView).execute(moviePosters.get(position));
                     builder.addContentView(imageView, new RelativeLayout.LayoutParams(
                             ViewGroup.LayoutParams.MATCH_PARENT,
                             ViewGroup.LayoutParams.MATCH_PARENT));
