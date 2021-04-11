@@ -36,8 +36,6 @@ public class CustomAdapter extends ArrayAdapter<String> {
         this.movieTitles = movieTitles;
         this.movieRatings = movieRatings;
         this.moviePosters = moviePosters;
-
-        System.out.println(movieRatings);
     }
 
     @SuppressLint({"InflateParams", "SetTextI18n"})
@@ -56,7 +54,7 @@ public class CustomAdapter extends ArrayAdapter<String> {
 
             text.setText(movieTitles.get(position));
             rating.setText("IMDB Rating : " + movieRatings.get(position));
-            new DownloadImageTask(image).execute(moviePosters.get(position));
+            new InjectImageToHolder(image).execute(moviePosters.get(position));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,28 +64,27 @@ public class CustomAdapter extends ArrayAdapter<String> {
     }
 }
 
-class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+class InjectImageToHolder extends AsyncTask<String, Void, Bitmap> {
     @SuppressLint("StaticFieldLeak")
-    ImageView bmImage;
+    ImageView imageView;
 
-    public DownloadImageTask(ImageView bmImage) {
-        this.bmImage = bmImage;
+    public InjectImageToHolder(ImageView bmImage) {
+        this.imageView = bmImage;
     }
 
     protected Bitmap doInBackground(String... urls) {
-        String urldisplay = urls[0];
-        Bitmap mIcon11 = null;
+        String url = urls[0];
+        Bitmap bitmap = null;
         try {
-            InputStream in = new java.net.URL(urldisplay).openStream();
-            mIcon11 = BitmapFactory.decodeStream(in);
+            InputStream in = new java.net.URL(url).openStream();
+            bitmap = BitmapFactory.decodeStream(in);
         } catch (Exception e) {
             Log.e("Error", e.getMessage());
-            e.printStackTrace();
         }
-        return mIcon11;
+        return bitmap;
     }
 
     protected void onPostExecute(Bitmap result) {
-        bmImage.setImageBitmap(result);
+        imageView.setImageBitmap(result);
     }
 }
