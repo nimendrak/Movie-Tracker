@@ -56,7 +56,7 @@ public class DisplayMovies extends AppCompatActivity {
         // Set ListView divider color programmatically
         int[] colors = {0, 0xFFFFFFFF, 0};
         listView.setDivider(new GradientDrawable(GradientDrawable.Orientation.RIGHT_LEFT, colors));
-        listView.setDividerHeight(1);
+        listView.setDividerHeight(2);
     }
 
     @Override
@@ -75,16 +75,6 @@ public class DisplayMovies extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-//
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//
-//        ListView listView = findViewById(R.id.list_view);
-//        listView.removeAllViewsInLayout();
-//
-//        Log.i(LOG_TAG, "Destroyed");
-//    }
 
     private class CustomAdapter extends ArrayAdapter<String> {
         public CustomAdapter() {

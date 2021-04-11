@@ -40,8 +40,6 @@ public class Search extends AppCompatActivity {
     CustomAdapter customAdapter;
     ListView listView;
 
-    String inputStr;
-
     @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,52 +62,40 @@ public class Search extends AppCompatActivity {
             }
         });
 
-        inputStr = getSearchInput(getSearchChar);
-        Log.i(LOG_TAG, inputStr);
+        getSearchChar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSearchChar.getText().clear();
+                listView.setVisibility(View.INVISIBLE);
+            }
+        });
 
         // Set ListView divider color programmatically
         int[] colors = {0, 0xFFFFFFFF, 0};
         listView.setDivider(new GradientDrawable(GradientDrawable.Orientation.RIGHT_LEFT, colors));
-        listView.setDividerHeight(1);
+        listView.setDividerHeight(2);
     }
 
+    @SuppressLint("DefaultLocale")
     public void search(View view) {
-        Log.i(LOG_TAG, getSearchChar.getText().toString());
         try {
+            // Hide keyboard when user clicks Lookup Btn
+            InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+            imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+
             searchResults = movieDatabase.getSearchResults(getSearchChar.getText().toString());
+
+            if (searchResults.isEmpty()) {
+                movieDatabase.showSnackBar(findViewById(R.id.search_movie_activity), "No Search Results");
+            }
 
             customAdapter = new CustomAdapter();
             listView.setAdapter(customAdapter);
+
+            listView.setVisibility(View.VISIBLE);
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public String getSearchInput(final EditText holder) {
-        final String[] strInputs = new String[1];
-        final InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-
-        if (holder != null) {
-            // In case, user didn't consume imOptions
-            final String currentInput = holder.getText().toString();
-            strInputs[0] = currentInput;
-
-            // Using imOption
-            holder.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                @Override
-                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                    boolean handled = false;
-                    if (actionId == EditorInfo.IME_ACTION_SEND) {
-                        strInputs[0] = holder.getText().toString();
-                        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-                        handled = true;
-                    }
-                    return handled;
-                }
-            });
-        }
-        System.out.println(strInputs[0]);
-        return strInputs[0];
     }
 
     private class CustomAdapter extends ArrayAdapter<Movie> {
@@ -117,7 +103,7 @@ public class Search extends AppCompatActivity {
             super(Search.this, R.layout.list_view_row_des2, searchResults);
         }
 
-        @SuppressLint({"InflateParams", "DefaultLocale"})
+        @SuppressLint({"InflateParams", "DefaultLocale", "LongLogTag"})
         @Override
         public View getView(final int position, View view, ViewGroup parent) {
             View rowView = view;

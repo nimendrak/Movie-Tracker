@@ -27,7 +27,7 @@ public class MovieDatabase extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "MovieDatabase";
     private static final String DB_TABLE = "movies";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
 
     Context context;
     SQLiteDatabase myDb;
@@ -169,15 +169,12 @@ public class MovieDatabase extends SQLiteOpenHelper {
                 }
                 cursor.close();
                 myDb.close();
-                Log.d("Search Result", movieData.toString());
                 return movieData;
             }
-            Log.d("Search Result", movieData.toString());
             return movieData;
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return movieData;
     }
 

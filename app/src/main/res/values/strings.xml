@@ -57,5 +57,6 @@
     <string name="movie_category_textView">Movie Category</string>
     <string name="fav_movie_textView">Favorite Movie</string>
     <string name="not_fav_movie_textView">Not a Favorite Movie</string>
+    <string name="null_search_results">No Search Results</string>
 
 </resources>

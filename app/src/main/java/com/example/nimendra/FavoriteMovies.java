@@ -59,7 +59,7 @@ public class FavoriteMovies extends AppCompatActivity {
         // Set ListView divider color programmatically
         int[] colors = {0, 0xFFFFFFFF, 0};
         listView.setDivider(new GradientDrawable(GradientDrawable.Orientation.RIGHT_LEFT, colors));
-        listView.setDividerHeight(1);
+        listView.setDividerHeight(2);
     }
 
     @Override
