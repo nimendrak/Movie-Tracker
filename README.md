@@ -13,7 +13,6 @@ Every actions that user takes as mentioned in the above list, will be saved in S
 
 ## Essential Directory Layout
 
-    
     .
     ├── app
     │   ├── build
@@ -27,16 +26,20 @@ Every actions that user takes as mentioned in the above list, will be saved in S
     │       │   │   └── com
     │       │   │       └── example
     │       │   │           └── nimendra
-    │       │   │               ├── AdvancedActivity.java
-    │       │   │               ├── CarHintActivity.java
-    │       │   │               ├── CarImageActivity.java
-    │       │   │               ├── CarMakeActivity.java
+    │       │   │               ├── DisplayMovies.java
+    │       │   │               ├── EditMovies.java
+    │       │   │               ├── FavoriteMovies.java
     │       │   │               ├── MainActivity.java
+    │       │   │               ├── Ratings.java
+    │       │   │               ├── Search.java
+    │       │   │               ├── SelectMovie.java
     │       │   │               └── utils
-    │       │   │                   ├── ImageLoader.java
-    │       │   │                   ├── PopulateData.java
-    │       │   │                   ├── Styles.java
-    │       │   │                   └── ValidateImages.java
+    │       │   │                   ├── CustomAdapter.java
+    │       │   │                   │      ├── CustomAdapter.java
+    │       │   │                   │      └── InjectImageToHolder.java
+    │       │   │                   ├── FetchData.java
+    │       │   │                   ├── Movie.java
+    │       │   │                   └── MovieDatabase.java
     │       │   └── res
     │       │       ├── drawable
     │       │       └── values
