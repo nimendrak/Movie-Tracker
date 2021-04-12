@@ -24,7 +24,7 @@ public class MovieDatabase extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "MovieDatabase";
     private static final String DB_TABLE = "movies";
-    private static final int DB_VERSION = 4;
+    private static final int DB_VERSION = 1;
 
     Context context;
     SQLiteDatabase myDb;
