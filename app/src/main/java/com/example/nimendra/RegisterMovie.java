@@ -91,8 +91,12 @@ public class RegisterMovie extends AppCompatActivity {
         getMovieReviews.getText().clear();
     }
 
-    // Get input and validate from the EditText and holds it on a array of 1 element
-    // Once user clicks the submit button, soft keyboard will disappear
+    /**
+     * Get input and validate from the EditText and holds it on a array of 1 element
+     * Once user clicks the submit button, soft keyboard will disappear
+     * @param holder - EditText that should be validated (getYearInput)
+     * @return - True, if prompted year is larger than 1895
+     */
     public boolean validateYear(final EditText holder) {
         final int[] validatedAnswer = new int[1];
         final InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);

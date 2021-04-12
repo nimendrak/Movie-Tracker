@@ -24,7 +24,7 @@ public class MovieDatabase extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "MovieDatabase";
     private static final String DB_TABLE = "movies";
-    private static final int DB_VERSION = 2;
+    private static final int DB_VERSION = 3;
 
     Context context;
     SQLiteDatabase myDb;
@@ -186,16 +186,6 @@ public class MovieDatabase extends SQLiteOpenHelper {
         return movieModelData;
     }
 
-    public void delete(String title) {
-        try {
-            myDb = getWritableDatabase();
-            myDb.delete(DB_TABLE, "mov_title=?", new String[]{title});
-            Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            Toast.makeText(context, "Could not find Movie Title", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     public void updateMovieData(String id, String title, int year, String director, String cast, int ratings, String reviews, int isFav, View view) {
         try {
             myDb = getWritableDatabase();
@@ -230,10 +220,8 @@ public class MovieDatabase extends SQLiteOpenHelper {
             for (int i = 0; i < favMovieList.size(); i++) {
                 myDb.update(DB_TABLE, cv, "mov_title = ?", new String[]{favMovieList.get(i)});
             }
-            new ShowSnackBar(view, "Favorite Movies List Updated");
         } catch (Exception e) {
             e.printStackTrace();
-            new ShowSnackBar(view, "Favorite Movies List Updated");
         }
     }
 

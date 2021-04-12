@@ -27,8 +27,10 @@ public class EditMovie extends AppCompatActivity {
     // Class name for Log tag
     private static final String LOG_TAG = EditMovie.class.getSimpleName();
 
+    // Holds the values of Selected Movie
     List<String> currentMovieData = new ArrayList<>();
 
+    // SQLite helper class initializing
     MovieDatabase movieDatabase;
 
     EditText getMovieTitle;
@@ -48,17 +50,25 @@ public class EditMovie extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_movie);
 
+        // Refers the already declared movieDatabase instance
         movieDatabase = MovieDatabase.getInstance(this);
 
+        // EditTexts -> Inputs
         getMovieTitle = findViewById(R.id.search_input);
         getMovieYear = findViewById(R.id.year_input);
         getMovieDirector = findViewById(R.id.director_input);
         getMovieCast = findViewById(R.id.cast_input);
         getMovieRatings = findViewById(R.id.ratings_input);
         getMovieReviews = findViewById(R.id.reviews_input);
+
+        // Checkbox -> isFav statuts
         isFavorite = findViewById(R.id.isFav);
 
+        // TextView -> Movie ID
         movieIndex = findViewById(R.id.movie_index);
+
+        // RatingBar -> Out of 10 stars
+        ratingBar = findViewById(R.id.ratingBar);
 
         // Get the selected_item from EditMovieMenu
         String selectedMovie = getIntent().getExtras().getString("selected_item");
@@ -69,15 +79,15 @@ public class EditMovie extends AppCompatActivity {
         // Set current data into the EditMovie activity
         movieIndex.setText(String.format("%03d", Integer.parseInt(currentMovieData.get(0))));
 
+        // Set selected movie data as the EditText values
         getMovieTitle.setText(currentMovieData.get(1));
         getMovieYear.setText(currentMovieData.get(2));
         getMovieDirector.setText(currentMovieData.get(3));
         getMovieCast.setText(currentMovieData.get(4));
         getMovieReviews.setText(currentMovieData.get(6));
 
-        ratingBar = findViewById(R.id.ratingBar);
+        // Set ratings bar stars according to the given rating
         ratingBar.setRating(Float.parseFloat(currentMovieData.get(5)));
-//        ratingBar.setRating(10.0f);
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
@@ -85,6 +95,7 @@ public class EditMovie extends AppCompatActivity {
             }
         });
 
+        // Set isFav status by given data
         if (Integer.parseInt(currentMovieData.get(7)) == 1) {
             isFavorite.setChecked(true);
             isFavorite.setText(R.string.fav_movie_textView);
@@ -107,6 +118,12 @@ public class EditMovie extends AppCompatActivity {
         });
     }
 
+    /**
+     * When user clicks save movie data and wanted to undo the data to previous status
+     * Original data is already stores on the currentMovieData list
+     * Repopulate EditText accordingly from the currentMovieData list
+     * @param view - Current Layout
+     */
     public void undoData(View view) {
         getMovieTitle.setText(currentMovieData.get(1));
         getMovieYear.setText(currentMovieData.get(2));
@@ -126,8 +143,13 @@ public class EditMovie extends AppCompatActivity {
         new ShowSnackBar(findViewById(R.id.edit_movie), "Movie Data Rollback to Original");
     }
 
+    /**
+     * Save updated movie data on database
+     * @param view - Current Layout
+     */
     @SuppressLint("DefaultLocale")
     public void saveMovie(View view) {
+        // In order to update database movie year should be larger than 1895
         if (validateYear(getMovieYear)) {
             String title = getMovieTitle.getText().toString();
             int year = Integer.parseInt(getMovieYear.getText().toString());
@@ -151,8 +173,12 @@ public class EditMovie extends AppCompatActivity {
         }
     }
 
-    // Get input and validate from the EditText and holds it on a array of 1 element
-    // Once user clicks the submit button, soft keyboard will disappear
+    /**
+     * Get input and validate from the EditText and holds it on a array of 1 element
+     * Once user clicks the submit button, soft keyboard will disappear
+     * @param holder - EditText that should be validated (getYearInput)
+     * @return - True, if prompted year is larger than 1895
+     */
     public boolean validateYear(final EditText holder) {
         final int[] validatedAnswer = new int[1];
         final InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);

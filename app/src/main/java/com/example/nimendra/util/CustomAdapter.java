@@ -2,10 +2,6 @@ package com.example.nimendra.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +11,6 @@ import android.widget.TextView;
 
 import com.example.nimendra.R;
 
-import java.io.InputStream;
 import java.util.List;
 
 public class CustomAdapter extends ArrayAdapter<String> {

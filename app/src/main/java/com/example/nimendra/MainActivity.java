@@ -2,19 +2,14 @@ package com.example.nimendra;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.nimendra.util.MovieDatabase;
 
 public class MainActivity extends AppCompatActivity {
-
-    // Class name for Log tag
-    private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     MovieDatabase movieDatabase;
 
@@ -24,10 +19,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Initialize SQLite Database using singleton
         movieDatabase = MovieDatabase.getInstance(this);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void registerMovie(View view) {
         Intent intent = new Intent(this, RegisterMovie.class);
         startActivity(intent);
@@ -42,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, FavoriteMovies.class);
         startActivity(intent);
     }
+
+    // Both EditMovies and Ratings activities use the same 1st Screen
+    // Which is used to display all the movies in Database
+    // Each activity will launch accordingly to the putExtra boolean (ratings)
 
     public void editMovies(View view) {
         Intent intent = new Intent(this, SelectMovie.class);

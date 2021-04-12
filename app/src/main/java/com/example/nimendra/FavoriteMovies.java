@@ -1,10 +1,6 @@
 package com.example.nimendra;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +13,8 @@ import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.nimendra.util.MovieDatabase;
 
 import java.util.ArrayList;
@@ -28,9 +26,12 @@ public class FavoriteMovies extends AppCompatActivity {
     private static final String LOG_TAG = DisplayMovies.class.getSimpleName();
 
     private List<String> favMoviesTitles;
+    private List<String> favMoviesTitlesTemp;
+
     private ArrayList<Boolean> checkboxesStatus = new ArrayList<>();
 
-    private CustomAdapter adapter;
+    CustomAdapter adapter;
+    ListView listView;
 
     MovieDatabase movieDatabase;
 
@@ -43,17 +44,17 @@ public class FavoriteMovies extends AppCompatActivity {
 
         // Favorite Movie titles list
         favMoviesTitles = movieDatabase.retrieveFavoriteData();
+        favMoviesTitlesTemp = new ArrayList<>(favMoviesTitles);
 
-        Log.i(LOG_TAG + "fav movies size", String.valueOf(favMoviesTitles.size()));
-        Log.i(LOG_TAG + "fav movies", String.valueOf(favMoviesTitles));
+        Log.i(LOG_TAG + " fav movies size", String.valueOf(favMoviesTitles.size()));
+        Log.i(LOG_TAG + " fav movies", String.valueOf(favMoviesTitles));
 
-        SharedPreferences preferences = getSharedPreferences(FavoriteMovies.class.getSimpleName(), Context.MODE_PRIVATE);
         for (int i = 0; i < favMoviesTitles.size(); i++) {
-            checkboxesStatus.add(preferences.getBoolean(String.format("checkbox %s", i), false));
+            checkboxesStatus.add(false);
         }
 
         adapter = new CustomAdapter();
-        ListView listView = findViewById(R.id.list_view);
+        listView = findViewById(R.id.list_view);
         listView.setAdapter(adapter);
 
         // Set ListView divider color programmatically
@@ -71,44 +72,57 @@ public class FavoriteMovies extends AppCompatActivity {
         @Override
         public View getView(final int position, View view, ViewGroup parent) {
             View rowView = view;
-            if (rowView == null) {
-                LayoutInflater inflater = getLayoutInflater();
-                rowView = inflater.inflate(R.layout.list_view_row_des1, null, true);
-            }
-            TextView text = rowView.findViewById(R.id.label);
-            text.setText(favMoviesTitles.get(position));
-
-            CheckBox checkBox = rowView.findViewById(R.id.checkbox);
-            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    try {
-                        System.out.println("position -> " + position);
-                        checkboxesStatus.set(position, isChecked);
-                        if (isChecked) {
-                            // Remove non checked movie
-                            favMoviesTitles.remove(favMoviesTitles.get(position));
-                            checkboxesStatus.remove(checkboxesStatus.get(position));
-                        }
-                        System.out.println(favMoviesTitles);
-                        System.out.println(checkboxesStatus);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+            try {
+                if (rowView == null) {
+                    LayoutInflater inflater = getLayoutInflater();
+                    rowView = inflater.inflate(R.layout.list_view_row_des1, null, true);
                 }
-            });
-            checkBox.setChecked(checkboxesStatus.get(position));
+                TextView text = rowView.findViewById(R.id.label);
+                text.setText(favMoviesTitles.get(position));
+
+                CheckBox checkBox = rowView.findViewById(R.id.checkbox);
+                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        try {
+                            checkboxesStatus.set(position, isChecked);
+                            if (isChecked) {
+                                // Remove non checked movie
+                                favMoviesTitles.remove(favMoviesTitles.get(position));
+                                checkboxesStatus.remove(checkboxesStatus.get(position));
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return rowView;
         }
     }
 
     public void removeFromFavorites(View view) {
         movieDatabase.addToFavorites(findViewById(R.id.favorites_movies), favMoviesTitles);
-        movieDatabase.showAll();
 
+        listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
 
-        Log.i(LOG_TAG, String.valueOf(favMoviesTitles.size()));
-        Log.i(LOG_TAG, String.valueOf(favMoviesTitles));
+    public void resetStatus(View view) {
+        checkboxesStatus.clear();
+        for (int i = 0; i < favMoviesTitlesTemp.size(); i++) {
+            if (!favMoviesTitles.contains(favMoviesTitlesTemp.get(i))) {
+                favMoviesTitles.add(favMoviesTitlesTemp.get(i));
+            }
+            checkboxesStatus.add(false);
+        }
+
+        Log.i(LOG_TAG + " favMoviesTitles ", String.valueOf(favMoviesTitles));
+        Log.i(LOG_TAG + " checkboxesStatus ", String.valueOf(checkboxesStatus));
+
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 }
