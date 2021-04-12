@@ -13,6 +13,10 @@ import com.example.nimendra.R;
 
 import java.util.List;
 
+/**
+ * This CustomAdapter takes the resource layout as list_view_row_des3
+ * And the Obj Arrays are movieTitles, movieRatings and moviePosters
+ */
 public class CustomAdapter extends ArrayAdapter<String> {
 
     int resourceLayout;
@@ -49,6 +53,8 @@ public class CustomAdapter extends ArrayAdapter<String> {
 
             text.setText(movieTitles.get(position));
             rating.setText("IMDB Rating : " + movieRatings.get(position));
+
+            // Images will inject to the holders through a AsyncTask
             new InjectImages(image).execute(moviePosters.get(position));
 
         } catch (Exception e) {

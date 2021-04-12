@@ -1,7 +1,6 @@
-package com.example.nimendra.util;
+package com.example.nimendra.db;
 
 import android.annotation.SuppressLint;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -9,22 +8,25 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
-import static android.provider.BaseColumns._ID;
+import com.example.nimendra.util.MovieModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static android.provider.BaseColumns._ID;
+
 public class MovieDatabase extends SQLiteOpenHelper {
     @SuppressLint("StaticFieldLeak")
     public static MovieDatabase instance;
 
+    // Class name for Log tag
+    private static final String LOG_TAG = MovieDatabase.class.getSimpleName();
+
     private static final String DB_NAME = "MovieDatabase";
     private static final String DB_TABLE = "movies";
-    private static final int DB_VERSION = 3;
+    private static final int DB_VERSION = 4;
 
     Context context;
     SQLiteDatabase myDb;
@@ -44,7 +46,7 @@ public class MovieDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + DB_TABLE + " (" + _ID + " INTEGER primary key autoincrement, mov_title TEXT unique, mov_year INTEGER, mov_director TEXT, mov_cast TEXT, mov_ratings INTEGER, mov_reviews TEXT, isFavourite BOOLEAN);");
-        Log.i("Database", "Table Created");
+        Log.i(LOG_TAG, " Table Created");
     }
 
     @Override
@@ -53,13 +55,13 @@ public class MovieDatabase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insertData(String title, int year, String director, String cast, int ratings, String reviews) {
+    public void insertData(MovieModel movieModel) {
         try {
             myDb = getWritableDatabase();
-            myDb.execSQL("insert into " + DB_TABLE + " (mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews, isFavourite) values ('" + title + "' , '" + year + "' , '" + director + "' , '" + cast + "' , '" + ratings + "' , '" + reviews + "' , '" + 0 + "');");
+            myDb.execSQL("insert into " + DB_TABLE + " (mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews, isFavourite) values ('" + movieModel.getTitle() + "' , '" + movieModel.getYear() + "' , '" + movieModel.getDirector() + "' , '" + movieModel.getCast() + "' , '" + movieModel.getRatings() + "' , '" + movieModel.getReviews() + "' , '" + movieModel.getIsFav() + "');");
 
             // Sample data
-            myDb.execSQL("insert into " + DB_TABLE + " (mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews, isFavourite) values ('" + "Zack Snyder Justice League" + "' , '" + 2021 + "' , '" + "Zack Snyder" + "' , '" + "Ben Affleck, Henry Cavil, Ezra Miller, Jason Mamoa" + "' , '" + 10 + "' , '" + "t’s bloodier. More profane. Its quasi-spirituality can be perplexing. And then there’s this: It’s just a darker movier" + "' , '" + 0 + "');");
+            myDb.execSQL("insert into " + DB_TABLE + " (mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews, isFavourite) values ('" + "Zack Snyder Justice League" + "' , '" + 2021 + "' , '" + "Zack Snyder" + "' , '" + "Ben Affleck, Henry Cavil, Ezra Miller, Jason Mamoa" + "' , '" + 10 + "' , '" + "It’s bloodier. More profane. Its quasi-spirituality can be perplexing. And then there’s this: It’s just a darker movier" + "' , '" + 0 + "');");
             myDb.execSQL("insert into " + DB_TABLE + " (mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews, isFavourite) values ('" + "Tenet" + "' , '" + 2020 + "' , '" + "Chrsitopher Nolan" + "' , '" + "John Washington, Robert Pattinson, Elizabeth Debicki" + "' , '" + 8 + "' , '" + "Tenet is far from Nolans finest work" + "' , '" + 0 + "');");
             myDb.execSQL("insert into " + DB_TABLE + " (mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews, isFavourite) values ('" + "Enola Holmes" + "' , '" + 2020 + "' , '" + "Harry Bradbeer" + "' , '" + "Millie Bobby Brown, Henry Cavil, Sam Claffin" + "' , '" + 6 + "' , '" + "Enola Holmes delivers mostly positive messages about individuality, equality and freedom." + "' , '" + 0 + "');");
 
@@ -78,7 +80,6 @@ public class MovieDatabase extends SQLiteOpenHelper {
                 cursor.moveToFirst();
                 for (int i = 0; i < cursor.getCount(); i++) {
                     movieModelData.add(new MovieModel(
-                            cursor.getInt(0),
                             cursor.getString(1),
                             cursor.getInt(2),
                             cursor.getString(3),
@@ -92,7 +93,7 @@ public class MovieDatabase extends SQLiteOpenHelper {
                 cursor.close();
                 myDb.close();
             }
-            Log.i("MovieData", movieModelData.toString());
+            Log.i(LOG_TAG + " MovieData ", movieModelData.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -163,7 +164,6 @@ public class MovieDatabase extends SQLiteOpenHelper {
                 cursor.moveToFirst();
                 for (int i = 0; i < cursor.getCount(); i++) {
                     movieModelData.add(new MovieModel(
-                            cursor.getInt(0),
                             cursor.getString(1),
                             cursor.getInt(2),
                             cursor.getString(3),
@@ -185,25 +185,23 @@ public class MovieDatabase extends SQLiteOpenHelper {
         return movieModelData;
     }
 
-    public void updateMovieData(String id, String title, int year, String director, String cast, int ratings, String reviews, int isFav, View view) {
+    public void updateMovieData(String id, MovieModel movieModel) {
         try {
             myDb = getWritableDatabase();
 
-            System.out.println(id);
             ContentValues cv = new ContentValues();
-            cv.put("mov_title", title);
-            cv.put("mov_year", year);
-            cv.put("mov_director", director);
-            cv.put("mov_cast", cast);
-            cv.put("mov_ratings", ratings);
-            cv.put("mov_reviews", reviews);
-            cv.put("isFavourite", isFav);
+            cv.put("mov_title", movieModel.getTitle());
+            cv.put("mov_year", movieModel.getYear());
+            cv.put("mov_director", movieModel.getDirector());
+            cv.put("mov_cast", movieModel.getCast());
+            cv.put("mov_ratings", movieModel.getRatings());
+            cv.put("mov_reviews", movieModel.getReviews());
+            cv.put("isFavourite", movieModel.getIsFav());
 
             myDb.update(DB_TABLE, cv, "_id = ?", new String[]{id});
-            new ShowSnackBar(view, "Movie Data Updated");
 
         } catch (Exception e) {
-            new ShowSnackBar(view, "ID not available");
+            e.printStackTrace();
         }
     }
 
@@ -229,29 +227,6 @@ public class MovieDatabase extends SQLiteOpenHelper {
         long count = DatabaseUtils.queryNumEntries(myDb, DB_TABLE);
         myDb.close();
         return count;
-    }
-
-    public void showAll() {
-        myDb = getReadableDatabase();
-
-        @SuppressLint("Recycle")
-        Cursor cr = myDb.rawQuery("Select * from " + DB_TABLE, null);
-
-        System.out.println("ShowAll");
-        while (cr.moveToNext()) {
-            String s1 = cr.getString(0);
-            String s2 = cr.getString(1);
-            String s3 = cr.getString(2);
-            String s4 = cr.getString(3);
-            String s5 = cr.getString(4);
-            String s6 = cr.getString(5);
-            String s7 = cr.getString(6);
-            String s8 = cr.getString(7);
-
-            System.out.print(s1 + " - " + s2 + ", isFavourite -> " + s8 + " | ");
-
-        }
-        myDb.close();
     }
 }
 

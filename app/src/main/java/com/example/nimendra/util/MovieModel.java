@@ -1,7 +1,10 @@
 package com.example.nimendra.util;
 
+/**
+ * MovieModel contains all the data a single movie holds
+ * Implemented the Comparable interface to sort movies by titles
+ */
 public class MovieModel implements Comparable<MovieModel> {
-    private int id;
     private String title;
     private int year;
     private String director;
@@ -10,8 +13,7 @@ public class MovieModel implements Comparable<MovieModel> {
     private String reviews;
     private int isFav;
 
-    public MovieModel(int id, String title, int year, String director, String cast, int ratings, String reviews, int isFav) {
-        this.id = id;
+    public MovieModel(String title, int year, String director, String cast, int ratings, String reviews, int isFav) {
         this.title = title;
         this.year = year;
         this.director = director;
@@ -19,14 +21,6 @@ public class MovieModel implements Comparable<MovieModel> {
         this.ratings = ratings;
         this.reviews = reviews;
         this.isFav = isFav;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getTitle() {

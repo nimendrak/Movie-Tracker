@@ -7,7 +7,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.nimendra.util.MovieDatabase;
+import com.example.nimendra.db.MovieDatabase;
 
 public class MainActivity extends AppCompatActivity {
 

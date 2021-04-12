@@ -15,7 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.nimendra.util.MovieModel;
-import com.example.nimendra.util.MovieDatabase;
+import com.example.nimendra.db.MovieDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +29,7 @@ public class SelectMovie extends AppCompatActivity {
     private List<Integer> indexOfMovies = new ArrayList<>();
     private int movieIndex = 1;
 
+    // Initialize SQLite helper class
     MovieDatabase movieDatabase;
 
     @SuppressLint("DefaultLocale")
@@ -37,6 +38,7 @@ public class SelectMovie extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_movie);
 
+        // Refers the already declared movieDatabase instance
         movieDatabase = MovieDatabase.getInstance(this);
 
         // Movie titles list
@@ -86,6 +88,10 @@ public class SelectMovie extends AppCompatActivity {
         listView.setDividerHeight(2);
     }
 
+    /**
+     * This CustomAdapter takes the resource layout as list_view_row_des2
+     * And Obj Arr is movieTitles
+     */
     private class CustomAdapter extends ArrayAdapter<String> {
         public CustomAdapter() {
             super(SelectMovie.this, R.layout.list_view_row_des1, movieTitles);

@@ -19,7 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.nimendra.util.MovieModel;
-import com.example.nimendra.util.MovieDatabase;
+import com.example.nimendra.db.MovieDatabase;
 import com.example.nimendra.util.ShowSnackBar;
 
 import java.util.List;
@@ -29,12 +29,19 @@ public class Search extends AppCompatActivity {
     // Class name for Log tag
     private static final String LOG_TAG = Search.class.getSimpleName();
 
+    // Stores all the movies data
     List<MovieModel> searchResults;
 
+    // Gets input to proceed with search
     EditText getSearchChar;
+
+    // Triggers search function
     Button searchMovie;
 
+    // Custom adapter to show id, title
     CustomAdapter customAdapter;
+
+    // ListView for the Search Activity
     ListView listView;
 
     // Initialize SQLite helper class
@@ -46,13 +53,15 @@ public class Search extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        getSearchChar = findViewById(R.id.search_input);
-        searchMovie = findViewById(R.id.search_movie_btn);
-
+        // Refers the already declared movieDatabase instance
         movieDatabase = MovieDatabase.getInstance(this);
 
+        getSearchChar = findViewById(R.id.search_input);
+        searchMovie = findViewById(R.id.search_movie_btn);
         listView = findViewById(R.id.list_view);
 
+        // If user to wants to edit movie entry, user can clicks on the movie title name and
+        // It redirects user to the EditMovie Activity
         final Intent intent = new Intent(this, EditMovie.class);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -62,6 +71,7 @@ public class Search extends AppCompatActivity {
             }
         });
 
+        // Clear and reset EditText to search another movies
         getSearchChar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,6 +86,10 @@ public class Search extends AppCompatActivity {
         listView.setDividerHeight(2);
     }
 
+    /**
+     * Perform a search throughout the db according to the given input
+     * @param view - Current Layout
+     */
     @SuppressLint("DefaultLocale")
     public void search(View view) {
         try {
@@ -99,8 +113,8 @@ public class Search extends AppCompatActivity {
     }
 
     /**
-     * This CustomAdapter takes the resource layout as list_view_row_des1
-     * And Obj Arr is movieTitles
+     * This CustomAdapter takes the resource layout as list_view_row_des2
+     * And Obj Arr is searchResults
      */
     private class CustomAdapter extends ArrayAdapter<MovieModel> {
         public CustomAdapter() {
@@ -118,7 +132,7 @@ public class Search extends AppCompatActivity {
             TextView index = rowView.findViewById(R.id.index);
             TextView title = rowView.findViewById(R.id.title);
 
-            index.setText(String.format("%03d", searchResults.get(position).getId()));
+            index.setText(String.format("%03d", position));
             title.setText(searchResults.get(position).getTitle());
 
             return rowView;

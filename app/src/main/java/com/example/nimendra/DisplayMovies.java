@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.nimendra.util.MovieModel;
-import com.example.nimendra.util.MovieDatabase;
+import com.example.nimendra.db.MovieDatabase;
 import com.example.nimendra.util.ShowSnackBar;
 
 import java.util.ArrayList;

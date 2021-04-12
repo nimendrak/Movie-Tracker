@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -16,7 +15,8 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.example.nimendra.util.MovieDatabase;
+import com.example.nimendra.db.MovieDatabase;
+import com.example.nimendra.util.MovieModel;
 import com.example.nimendra.util.ShowSnackBar;
 
 import java.util.ArrayList;
@@ -112,7 +112,6 @@ public class EditMovie extends AppCompatActivity {
                 } else {
                     isFavorite.setText(R.string.not_fav_movie_textView);
                 }
-
             }
         });
     }
@@ -121,6 +120,7 @@ public class EditMovie extends AppCompatActivity {
      * When user clicks save movie data and wanted to undo the data to previous status
      * Original data is already stores on the currentMovieData list
      * Repopulate EditText accordingly from the currentMovieData list
+     *
      * @param view - Current Layout
      */
     public void undoData(View view) {
@@ -144,39 +144,45 @@ public class EditMovie extends AppCompatActivity {
 
     /**
      * Save updated movie data on database
+     *
      * @param view - Current Layout
      */
     @SuppressLint("DefaultLocale")
     public void saveMovie(View view) {
         // In order to update database movie year should be larger than 1895
-        if (validateYear(getMovieYear)) {
-            String title = getMovieTitle.getText().toString();
-            int year = Integer.parseInt(getMovieYear.getText().toString());
-            String director = getMovieDirector.getText().toString();
-            String cast = getMovieCast.getText().toString();
-            int ratings = (int) ratingBar.getRating();
-            String reviews = getMovieReviews.getText().toString();
+        try {
+            if (validateYear(getMovieYear)) {
+                String title = getMovieTitle.getText().toString();
+                int year = Integer.parseInt(getMovieYear.getText().toString());
+                String director = getMovieDirector.getText().toString();
+                String cast = getMovieCast.getText().toString();
+                int ratings = (int) ratingBar.getRating();
+                String reviews = getMovieReviews.getText().toString();
 
-            int isFav;
+                int isFav;
 
-            if (isFavorite.isChecked())
-                isFav = 1;
-            else
-                isFav = 0;
+                if (isFavorite.isChecked())
+                    isFav = 1;
+                else
+                    isFav = 0;
 
-            movieDatabase.updateMovieData(currentMovieData.get(0), title, year, director, cast, ratings, reviews, isFav, findViewById(R.id.edit_movie));
-            movieIndex.setText(String.format("%03d", movieDatabase.getDbSize()));
+                movieDatabase.updateMovieData(currentMovieData.get(0), new MovieModel(title, year, director, cast, ratings, reviews, isFav));
+                movieIndex.setText(String.format("%03d", movieDatabase.getDbSize()));
 
-            new ShowSnackBar(findViewById(R.id.edit_movie), "Movie Data Updated");
-        } else {
-            new ShowSnackBar(findViewById(R.id.edit_movie), "Prompted Year is below 1895");
-            getMovieYear.getText().clear();
+                new ShowSnackBar(findViewById(R.id.edit_movie), "Movie Data Updated");
+            } else {
+                new ShowSnackBar(findViewById(R.id.edit_movie), "Prompted Year is below 1895");
+                getMovieYear.getText().clear();
+            }
+        } catch (Exception e) {
+            new ShowSnackBar(view, "ID not available");
         }
     }
 
     /**
      * Get input and validate from the EditText and holds it on a array of 1 element
      * Once user clicks the submit button, soft keyboard will disappear
+     *
      * @param holder - EditText that should be validated (getYearInput)
      * @return - True, if prompted year is larger than 1895
      */

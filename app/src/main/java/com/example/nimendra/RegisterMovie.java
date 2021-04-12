@@ -7,7 +7,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -15,7 +14,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.nimendra.util.MovieDatabase;
+import com.example.nimendra.db.MovieDatabase;
+import com.example.nimendra.util.MovieModel;
 import com.example.nimendra.util.ShowSnackBar;
 
 public class RegisterMovie extends AppCompatActivity {
@@ -84,7 +84,8 @@ public class RegisterMovie extends AppCompatActivity {
                 int ratings = Integer.parseInt(getMovieRatings.getText().toString());
                 String reviews = getMovieReviews.getText().toString();
 
-                movieDatabase.insertData(title, year, director, cast, ratings, reviews);
+                // Insert validated movie at into movieDatabase
+                movieDatabase.insertData(new MovieModel(title, year, director, cast, ratings, reviews, 0));
 
                 // Shows the next row ID to prompt more movie data
                 movieIndex.setText(String.format("%03d", movieDatabase.getDbSize()));
