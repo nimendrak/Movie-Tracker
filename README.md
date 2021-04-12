@@ -7,7 +7,7 @@ This was a Native Android Mobile Application which was developed as a Movie Trac
     - Add/Remove Favorites Movies
     - Edit Registered Movies
     - Search Movies in Device Database
-    - Get Ratings/Images/Titles from IMDB API
+    - Get Movie Title/Ratings/Images from IMDB API
     
 Application uses a SQLite Database in order to store movie data. 
 
