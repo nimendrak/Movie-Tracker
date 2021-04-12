@@ -36,7 +36,7 @@ public class DisplayMovies extends AppCompatActivity {
     // Stores the favorite movies isFav status to show in checkboxes
     private final ArrayList<Boolean> checkboxesStatus = new ArrayList<>();
 
-    // SQLite helper class initializing
+    // Initialize SQLite helper class
     MovieDatabase movieDatabase;
 
     @Override
@@ -71,7 +71,7 @@ public class DisplayMovies extends AppCompatActivity {
 
     /**
      * This CustomAdapter takes the resource layout as list_view_row_des1
-     * And Obj Arr as movieTitles
+     * And Obj Arr is movieTitles
      */
     private class CustomAdapter extends ArrayAdapter<String> {
         public CustomAdapter() {
@@ -122,7 +122,7 @@ public class DisplayMovies extends AppCompatActivity {
      */
     public void AddToFav(View view) {
         try {
-            movieDatabase.addToFavorites(findViewById(R.id.display_movie), favMoviesTitles);
+            movieDatabase.addToFavorites(favMoviesTitles);
             new ShowSnackBar(view, "Favorite Movies List Updated");
         } catch (Exception e) {
             new ShowSnackBar(view, "Favorite Movies List Updated");

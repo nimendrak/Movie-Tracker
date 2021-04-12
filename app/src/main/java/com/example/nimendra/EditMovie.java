@@ -30,7 +30,7 @@ public class EditMovie extends AppCompatActivity {
     // Holds the values of Selected Movie
     List<String> currentMovieData = new ArrayList<>();
 
-    // SQLite helper class initializing
+    // Initialize SQLite helper class
     MovieDatabase movieDatabase;
 
     EditText getMovieTitle;
@@ -53,7 +53,7 @@ public class EditMovie extends AppCompatActivity {
         // Refers the already declared movieDatabase instance
         movieDatabase = MovieDatabase.getInstance(this);
 
-        // EditTexts -> Inputs
+        // EditText -> Inputs
         getMovieTitle = findViewById(R.id.search_input);
         getMovieYear = findViewById(R.id.year_input);
         getMovieDirector = findViewById(R.id.director_input);
@@ -61,7 +61,7 @@ public class EditMovie extends AppCompatActivity {
         getMovieRatings = findViewById(R.id.ratings_input);
         getMovieReviews = findViewById(R.id.reviews_input);
 
-        // Checkbox -> isFav statuts
+        // Checkbox -> isFav status
         isFavorite = findViewById(R.id.isFav);
 
         // TextView -> Movie ID
@@ -91,7 +91,6 @@ public class EditMovie extends AppCompatActivity {
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                Log.i(LOG_TAG, "onRatingChanged: rating : " + rating);
             }
         });
 
@@ -140,7 +139,7 @@ public class EditMovie extends AppCompatActivity {
             isFavorite.setText(R.string.not_fav_movie_textView);
         }
 
-        new ShowSnackBar(findViewById(R.id.edit_movie), "Movie Data Rollback to Original");
+        new ShowSnackBar(findViewById(R.id.edit_movie), "Resetting Movie Data..");
     }
 
     /**
@@ -167,6 +166,8 @@ public class EditMovie extends AppCompatActivity {
 
             movieDatabase.updateMovieData(currentMovieData.get(0), title, year, director, cast, ratings, reviews, isFav, findViewById(R.id.edit_movie));
             movieIndex.setText(String.format("%03d", movieDatabase.getDbSize()));
+
+            new ShowSnackBar(findViewById(R.id.edit_movie), "Movie Data Updated");
         } else {
             new ShowSnackBar(findViewById(R.id.edit_movie), "Prompted Year is below 1895");
             getMovieYear.getText().clear();

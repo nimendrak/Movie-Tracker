@@ -38,9 +38,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // Both EditMovies and Ratings activities use the same 1st Screen
-    // Which is used to display all the movies in Database
-    // Each activity will launch accordingly to the putExtra boolean (ratings)
+    /**
+     * Both EditMovies and Ratings activities use the same 1st Screen
+     * Which is used to display all the movies in Database
+     * Each activity will launch accordingly to the putExtra boolean (ratings)
+     * @param view - Current Layout
+     */
 
     public void editMovies(View view) {
         Intent intent = new Intent(this, SelectMovie.class);

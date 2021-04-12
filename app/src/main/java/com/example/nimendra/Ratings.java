@@ -17,9 +17,10 @@ public class Ratings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ratings);
 
-        final String selectedMovie = getIntent().getExtras().getString("selected_item");
-        Log.i(LOG_TAG + "Selected Movie ", selectedMovie);
+        // Selected movie that should be search on the IMDB
+        String selectedMovie = getIntent().getExtras().getString("selected_item");
 
+        // Fetch data from the IMDB API according to the selected movie
         FetchData fetchData = new FetchData(selectedMovie, this, Ratings.this);
         fetchData.execute();
     }

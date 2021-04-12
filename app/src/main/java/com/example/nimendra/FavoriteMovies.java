@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.nimendra.util.MovieDatabase;
+import com.example.nimendra.util.ShowSnackBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ public class FavoriteMovies extends AppCompatActivity {
     CustomAdapter adapter;
     ListView listView;
 
+    // Initialize SQLite helper class
     MovieDatabase movieDatabase;
 
     @Override
@@ -40,19 +42,22 @@ public class FavoriteMovies extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite_movies);
 
+        // Refers the already declared movieDatabase instance
         movieDatabase = MovieDatabase.getInstance(this);
 
         // Favorite Movie titles list
         favMoviesTitles = movieDatabase.retrieveFavoriteData();
+
+        // Gets a copy of the favMoviesTitles
+        // This will use if user wants to undo favorite movie data
         favMoviesTitlesTemp = new ArrayList<>(favMoviesTitles);
 
-        Log.i(LOG_TAG + " fav movies size", String.valueOf(favMoviesTitles.size()));
-        Log.i(LOG_TAG + " fav movies", String.valueOf(favMoviesTitles));
-
+        // Populating checkboxesStatus with default value false
         for (int i = 0; i < favMoviesTitles.size(); i++) {
             checkboxesStatus.add(false);
         }
 
+        // Initialize and declare CustomerAdapter to display movies
         adapter = new CustomAdapter();
         listView = findViewById(R.id.list_view);
         listView.setAdapter(adapter);
@@ -63,6 +68,10 @@ public class FavoriteMovies extends AppCompatActivity {
         listView.setDividerHeight(2);
     }
 
+    /**
+     * This CustomAdapter takes the resource layout as list_view_row_des1
+     * And Obj Arr is favMoviesTitles
+     */
     private class CustomAdapter extends ArrayAdapter<String> {
         public CustomAdapter() {
             super(FavoriteMovies.this, R.layout.list_view_row_des1, favMoviesTitles);
@@ -78,9 +87,9 @@ public class FavoriteMovies extends AppCompatActivity {
                     rowView = inflater.inflate(R.layout.list_view_row_des1, null, true);
                 }
                 TextView text = rowView.findViewById(R.id.label);
-                text.setText(favMoviesTitles.get(position));
-
                 CheckBox checkBox = rowView.findViewById(R.id.checkbox);
+
+                text.setText(favMoviesTitles.get(position));
                 checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -103,13 +112,29 @@ public class FavoriteMovies extends AppCompatActivity {
         }
     }
 
+    /**
+     * Remove selected movies from the favorites and refresh the ListView
+     * Then, shows the SnackBar
+     * @param view - Current Layout
+     */
     public void removeFromFavorites(View view) {
-        movieDatabase.addToFavorites(findViewById(R.id.favorites_movies), favMoviesTitles);
+        try {
+            movieDatabase.addToFavorites(favMoviesTitles);
 
-        listView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+            listView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+
+            new ShowSnackBar(view, "Favorite Movies Updated");
+        } catch (Exception e) {
+            new ShowSnackBar(view, "Favorite Movies Updated");
+        }
     }
 
+    /**
+     * Reset favorite movie data into the previous state and refresh the ListView
+     * Then, shows the SnackBar
+     * @param view - Current Layout
+     */
     public void resetStatus(View view) {
         checkboxesStatus.clear();
         for (int i = 0; i < favMoviesTitlesTemp.size(); i++) {
@@ -119,10 +144,9 @@ public class FavoriteMovies extends AppCompatActivity {
             checkboxesStatus.add(false);
         }
 
-        Log.i(LOG_TAG + " favMoviesTitles ", String.valueOf(favMoviesTitles));
-        Log.i(LOG_TAG + " checkboxesStatus ", String.valueOf(checkboxesStatus));
-
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+        new ShowSnackBar(view, "Resetting Favorite Movies");
     }
 }

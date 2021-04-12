@@ -53,11 +53,10 @@ public class MovieDatabase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insertData(String title, int year, String director, String cast, int ratings, String reviews, View view) {
+    public void insertData(String title, int year, String director, String cast, int ratings, String reviews) {
         try {
             myDb = getWritableDatabase();
             myDb.execSQL("insert into " + DB_TABLE + " (mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews, isFavourite) values ('" + title + "' , '" + year + "' , '" + director + "' , '" + cast + "' , '" + ratings + "' , '" + reviews + "' , '" + 0 + "');");
-            new ShowSnackBar(view, "Data has been recorded");
 
             // Sample data
             myDb.execSQL("insert into " + DB_TABLE + " (mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews, isFavourite) values ('" + "Zack Snyder Justice League" + "' , '" + 2021 + "' , '" + "Zack Snyder" + "' , '" + "Ben Affleck, Henry Cavil, Ezra Miller, Jason Mamoa" + "' , '" + 10 + "' , '" + "t’s bloodier. More profane. Its quasi-spirituality can be perplexing. And then there’s this: It’s just a darker movier" + "' , '" + 0 + "');");
@@ -65,7 +64,7 @@ public class MovieDatabase extends SQLiteOpenHelper {
             myDb.execSQL("insert into " + DB_TABLE + " (mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews, isFavourite) values ('" + "Enola Holmes" + "' , '" + 2020 + "' , '" + "Harry Bradbeer" + "' , '" + "Millie Bobby Brown, Henry Cavil, Sam Claffin" + "' , '" + 6 + "' , '" + "Enola Holmes delivers mostly positive messages about individuality, equality and freedom." + "' , '" + 0 + "');");
 
         } catch (Exception e) {
-            new ShowSnackBar(view, "Movie is already recorded");
+            e.printStackTrace();
         }
     }
 
@@ -208,7 +207,7 @@ public class MovieDatabase extends SQLiteOpenHelper {
         }
     }
 
-    public void addToFavorites(View view, List<String> favMovieList) {
+    public void addToFavorites(List<String> favMovieList) {
         myDb = getWritableDatabase();
 
         ContentValues cv = new ContentValues();

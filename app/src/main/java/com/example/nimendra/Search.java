@@ -29,7 +29,6 @@ public class Search extends AppCompatActivity {
     // Class name for Log tag
     private static final String LOG_TAG = Search.class.getSimpleName();
 
-    MovieDatabase movieDatabase;
     List<MovieModel> searchResults;
 
     EditText getSearchChar;
@@ -37,6 +36,9 @@ public class Search extends AppCompatActivity {
 
     CustomAdapter customAdapter;
     ListView listView;
+
+    // Initialize SQLite helper class
+    MovieDatabase movieDatabase;
 
     @SuppressLint("DefaultLocale")
     @Override
@@ -96,6 +98,10 @@ public class Search extends AppCompatActivity {
         }
     }
 
+    /**
+     * This CustomAdapter takes the resource layout as list_view_row_des1
+     * And Obj Arr is movieTitles
+     */
     private class CustomAdapter extends ArrayAdapter<MovieModel> {
         public CustomAdapter() {
             super(Search.this, R.layout.list_view_row_des2, searchResults);
