@@ -2,6 +2,7 @@ package com.example.nimendra.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,10 +29,10 @@ public class CustomAdapter extends ArrayAdapter<String> {
     // Stores all the returned movieRatings
     private List<String> movieRatings;
 
-    // Stores all the returned moviePosters as link
-    private List<String> moviePosters;
+    // Stores all the returned moviePosters as a BitMap
+    private List<Bitmap> moviePosters;
 
-    public CustomAdapter(Context context, int resource, List<String> movieTitles, List<String> movieRatings, List<String> moviePosters) {
+    public CustomAdapter(Context context, int resource, List<String> movieTitles, List<String> movieRatings, List<Bitmap> moviePosters) {
         super(context, resource, movieTitles);
 
         this.resourceLayout = resource;
@@ -58,11 +59,10 @@ public class CustomAdapter extends ArrayAdapter<String> {
 
             text.setText(movieTitles.get(position));
             rating.setText("IMDB Rating : " + movieRatings.get(position));
-
-            // Images will inject to the holders through a AsyncTask
-            new InjectImages(image).execute(moviePosters.get(position));
+            image.setImageBitmap(moviePosters.get(position));
 
         } catch (Exception e) {
+//            Log.e("Error", e.getMessage());
             e.printStackTrace();
         }
 

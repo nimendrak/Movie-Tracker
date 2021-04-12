@@ -139,6 +139,18 @@ public class EditMovie extends AppCompatActivity {
             isFavorite.setText(R.string.not_fav_movie_textView);
         }
 
+        movieDatabase.updateMovieData(currentMovieData.get(0),
+                new MovieModel(
+                        currentMovieData.get(1),
+                        Integer.parseInt(currentMovieData.get(2)),
+                        currentMovieData.get(3),
+                        currentMovieData.get(4),
+                        Integer.parseInt(currentMovieData.get(5)),
+                        currentMovieData.get(6),
+                        Integer.parseInt(currentMovieData.get(7))
+                )
+        );
+
         new ShowSnackBar(findViewById(R.id.edit_movie), "Resetting Movie Data..");
     }
 

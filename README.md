@@ -29,7 +29,6 @@ Application uses a SQLite Database in order to store movie data.
     │       │   │               ├── utils
     │       │   │               │   ├── CustomAdapter.java
     │       │   │               │   ├── FetchData.java
-    │       │   │               │   ├── InjectImages.java
     │       │   │               │   ├── MovieDatabase.java
     │       │   │               │   ├── MovieModel.java
     │       │   │               │   └── ShowSnackBar.java

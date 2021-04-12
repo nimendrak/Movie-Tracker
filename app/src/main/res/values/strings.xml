@@ -65,8 +65,8 @@
 
 
     <!--  Fetch Data & Ratings  -->
-<!--    <string name="MY_API_KEY">k_q8ltbyxn</string>-->
-    <string name="MY_API_KEY">k_ocasspr5</string>
+    <string name="MY_API_KEY">k_q8ltbyxn</string>
+<!--    <string name="MY_API_KEY">k_ocasspr5</string>-->
 
 
 </resources>

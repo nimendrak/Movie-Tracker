@@ -3,8 +3,11 @@ package com.example.nimendra.util;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
@@ -24,6 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -48,7 +52,7 @@ public class FetchData extends AsyncTask<Void, Void, Void> {
 
     private final List<String> movieTitles = new ArrayList<>();
     private final List<String> movieRatings = new ArrayList<>();
-    private final List<String> moviePosters = new ArrayList<>();
+    private final List<Bitmap> moviePosters = new ArrayList<Bitmap>();
 
     public FetchData(String selectedMovie, Activity activity, Context context) {
         this.selectedMovie = selectedMovie;
@@ -56,6 +60,21 @@ public class FetchData extends AsyncTask<Void, Void, Void> {
         this.context = context;
 
         API_KEY = context.getResources().getString(R.string.MY_API_KEY);
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+
+        ProgressDialog progressDialog = ProgressDialog.show(context, "Fetching..", "Fetching Data from IMDB server..");
+        progressDialog.setCanceledOnTouchOutside(true);
+        progressDialog.setCancelable(true);
+        progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dlg) {
+                FetchData.this.cancel(true);
+            }
+        });
     }
 
     @Override
@@ -79,7 +98,13 @@ public class FetchData extends AsyncTask<Void, Void, Void> {
                 movieIds.add(id);
 
                 String imgURL = resultDataTitles.getString("image");
-                moviePosters.add(imgURL);
+                try {
+                    URL url = new URL(imgURL);
+                    Bitmap image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                    moviePosters.add(image);
+                } catch(IOException e) {
+                    System.out.println(e);
+                }
             }
 
             // Fetch movie ratings from API
@@ -138,7 +163,7 @@ public class FetchData extends AsyncTask<Void, Void, Void> {
                     });
 
                     ImageView imageView = new ImageView(context);
-                    new InjectImages(imageView).execute(moviePosters.get(position));
+                    imageView.setImageBitmap(moviePosters.get(position));
                     builder.addContentView(imageView, new RelativeLayout.LayoutParams(
                             ViewGroup.LayoutParams.MATCH_PARENT,
                             ViewGroup.LayoutParams.MATCH_PARENT));
