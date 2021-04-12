@@ -134,7 +134,7 @@ public class FavoriteMovies extends AppCompatActivity {
      * Then, shows the SnackBar
      * @param view - Current Layout
      */
-    public void resetStatus(View view) {
+    public void undo(View view) {
         checkboxesStatus.clear();
         for (int i = 0; i < favMoviesTitlesTemp.size(); i++) {
             if (!favMoviesTitles.contains(favMoviesTitlesTemp.get(i))) {
@@ -143,6 +143,7 @@ public class FavoriteMovies extends AppCompatActivity {
             checkboxesStatus.add(false);
         }
 
+        movieDatabase.addToFavorites(favMoviesTitles);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 

@@ -187,7 +187,7 @@ public class EditMovie extends AppCompatActivity {
                 getMovieYear.getText().clear();
             }
         } catch (Exception e) {
-            new ShowSnackBar(view, "ID not available");
+            new ShowSnackBar(view, "Fill Above Fields to Update the Movie");
         }
     }
 

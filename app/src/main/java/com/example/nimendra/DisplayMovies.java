@@ -30,10 +30,10 @@ public class DisplayMovies extends AppCompatActivity {
     private List<String> movieTitles = new ArrayList<>();
 
     // Stores only the favorites
-    private final List<String> favMoviesTitles = new ArrayList<>();
+    private List<String> favMoviesTitles = new ArrayList<>();
 
     // Stores the favorite movies isFav status to show in checkboxes
-    private final ArrayList<Boolean> checkboxesStatus = new ArrayList<>();
+    private ArrayList<Boolean> checkboxesStatus = new ArrayList<>();
 
     // Initialize SQLite helper class
     MovieDatabase movieDatabase;
@@ -117,6 +117,7 @@ public class DisplayMovies extends AppCompatActivity {
     /**
      * Update selected movies as favorite movies in database
      * And display a SnackBar accordingly
+     *
      * @param view - Current Layout
      */
     public void AddToFav(View view) {
@@ -131,6 +132,7 @@ public class DisplayMovies extends AppCompatActivity {
     /**
      * Reset values of the checkboxesStatus and clear favoriteTitles
      * Then, update the listView
+     *
      * @param view - Current Layout
      */
     public void resetStatus(View view) {

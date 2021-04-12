@@ -79,7 +79,7 @@
         android:layout_marginStart="16dp"
         android:background="@drawable/button_ripple_effect"
         android:text="@string/undo_btnLabel"
-        android:onClick="resetStatus"
+        android:onClick="undo"
         android:textColor="#2E2E2E"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"

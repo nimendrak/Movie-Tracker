@@ -73,29 +73,34 @@ public class RegisterMovie extends AppCompatActivity {
      * @param view - Current Layout
      */
     @SuppressLint("DefaultLocale")
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public void registerMovie(View view) {
-        if (validateYear(getMovieYear)) {
-            try {
-                String title = getMovieTitle.getText().toString();
-                int year = Integer.parseInt(getMovieYear.getText().toString());
-                String director = getMovieDirector.getText().toString();
-                String cast = getMovieCast.getText().toString();
-                int ratings = Integer.parseInt(getMovieRatings.getText().toString());
-                String reviews = getMovieReviews.getText().toString();
+        try {
+            if (validateYear(getMovieYear)) {
+                try {
+                    String title = getMovieTitle.getText().toString();
+                    int year = Integer.parseInt(getMovieYear.getText().toString());
+                    String director = getMovieDirector.getText().toString();
+                    String cast = getMovieCast.getText().toString();
+                    int ratings = Integer.parseInt(getMovieRatings.getText().toString());
+                    String reviews = getMovieReviews.getText().toString();
 
-                // Insert validated movie at into movieDatabase
-                movieDatabase.insertData(new MovieModel(title, year, director, cast, ratings, reviews, 0));
+                    // Insert validated movie at into movieDatabase
+                    movieDatabase.insertData(new MovieModel(title, year, director, cast, ratings, reviews, 0));
 
-                // Shows the next row ID to prompt more movie data
-                movieIndex.setText(String.format("%03d", movieDatabase.getDbSize()));
-                resetData(findViewById(R.id.register_movie));
-            } catch (Exception e) {
-                new ShowSnackBar(view, "Movie is already recorded");
+                    // Shows the next row ID to prompt more movie data
+                    movieIndex.setText(String.format("%03d", movieDatabase.getDbSize()));
+                    resetData(findViewById(R.id.register_movie));
+
+                    new ShowSnackBar(view, "Movie data recorded");
+                } catch (Exception e) {
+                    new ShowSnackBar(view, "Movie data already recorded");
+                }
+            } else {
+                new ShowSnackBar(view, "Prompted Year is below 1895");
+                getMovieYear.getText().clear();
             }
-        } else {
-            new ShowSnackBar(view, "Prompted Year is below 1895");
-            getMovieYear.getText().clear();
+        } catch (Exception e) {
+            new ShowSnackBar(view, "Fill Above Fields to Record the Movie");
         }
     }
 
@@ -113,7 +118,7 @@ public class RegisterMovie extends AppCompatActivity {
         getMovieRatings.getText().clear();
         getMovieReviews.getText().clear();
 
-        new ShowSnackBar(view, "Data has been recorded");
+        new ShowSnackBar(view, "All the Data has been cleared");
     }
 
     /**
@@ -146,8 +151,6 @@ public class RegisterMovie extends AppCompatActivity {
                     return handled;
                 }
             });
-        } else {
-            new ShowSnackBar(findViewById(R.id.register_movie), "Enter all the Data to Register Movie");
         }
         return validatedAnswer[0] > 1895;
     }
