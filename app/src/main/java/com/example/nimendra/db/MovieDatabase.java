@@ -46,7 +46,7 @@ public class MovieDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + DB_TABLE + " (" + _ID + " INTEGER primary key autoincrement, mov_title TEXT unique, mov_year INTEGER, mov_director TEXT, mov_cast TEXT, mov_ratings INTEGER, mov_reviews TEXT, isFavourite BOOLEAN);");
-        Log.i(LOG_TAG, " Created");
+        Log.i(LOG_TAG, "Created");
     }
 
     @Override
@@ -65,7 +65,7 @@ public class MovieDatabase extends SQLiteOpenHelper {
             myDb.execSQL("insert into " + DB_TABLE + " (mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews, isFavourite) values ('" + "Tenet" + "' , '" + 2020 + "' , '" + "Chrsitopher Nolan" + "' , '" + "John Washington, Robert Pattinson, Elizabeth Debicki" + "' , '" + 8 + "' , '" + "Tenet is far from Nolans finest work" + "' , '" + 0 + "');");
             myDb.execSQL("insert into " + DB_TABLE + " (mov_title, mov_year, mov_director, mov_cast, mov_ratings, mov_reviews, isFavourite) values ('" + "Enola Holmes" + "' , '" + 2020 + "' , '" + "Harry Bradbeer" + "' , '" + "Millie Bobby Brown, Henry Cavil, Sam Claffin" + "' , '" + 6 + "' , '" + "Enola Holmes delivers mostly positive messages about individuality, equality and freedom." + "' , '" + 0 + "');");
 
-            Log.i(LOG_TAG, " Movie Data Inserted");
+            Log.i(LOG_TAG, "Movie Data Inserted");
         } catch (Exception e) {
             Log.e(LOG_TAG, e.getMessage());
         }
@@ -98,7 +98,7 @@ public class MovieDatabase extends SQLiteOpenHelper {
             Log.e(LOG_TAG, e.getMessage());
         }
         Collections.sort(movieModelData);
-        Log.i(LOG_TAG, " retrieveMoviesData() returned");
+        Log.i(LOG_TAG, "retrieveMoviesData() returned");
         return movieModelData;
     }
 
@@ -121,7 +121,7 @@ public class MovieDatabase extends SQLiteOpenHelper {
 
         // Sorting the movies alphabetically
         Collections.sort(favoriteMovieList);
-        Log.i(LOG_TAG, " Favorite Movies Data returned");
+        Log.i(LOG_TAG, "Favorite Movies Data returned");
         return favoriteMovieList;
     }
 
@@ -146,7 +146,7 @@ public class MovieDatabase extends SQLiteOpenHelper {
         cursor.close();
         myDb.close();
 
-        Log.i(LOG_TAG, " Specific Movies Data returned");
+        Log.i(LOG_TAG, "Specific Movies Data returned");
         return movieData;
     }
 
@@ -180,7 +180,7 @@ public class MovieDatabase extends SQLiteOpenHelper {
                 cursor.close();
                 myDb.close();
 
-                Log.i(LOG_TAG, " Search Results returned");
+                Log.i(LOG_TAG, "Search Results returned");
                 return movieModelData;
             }
             return movieModelData;
@@ -209,7 +209,7 @@ public class MovieDatabase extends SQLiteOpenHelper {
             Log.e(LOG_TAG, e.getMessage());
         }
 
-        Log.i(LOG_TAG, " Movie Data Updated");
+        Log.i(LOG_TAG, "Movie Data Updated");
     }
 
     public void addToFavorites(List<String> favMovieList) {
@@ -225,7 +225,7 @@ public class MovieDatabase extends SQLiteOpenHelper {
                 myDb.update(DB_TABLE, cv, "mov_title = ?", new String[]{favMovieList.get(i)});
             }
 
-            Log.i(LOG_TAG, " Added to Favorite Movies");
+            Log.i(LOG_TAG, "Added to Favorite Movies");
         } catch (Exception e) {
             Log.e(LOG_TAG, e.getMessage());
         }

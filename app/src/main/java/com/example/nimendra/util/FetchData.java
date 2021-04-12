@@ -99,10 +99,10 @@ public class FetchData extends AsyncTask<Void, Void, Void> {
         }
 
         System.out.println();
-        Log.i(LOG_TAG + " Movie IDs ", String.valueOf(movieIds));
-        Log.i(LOG_TAG + " Movie Titles ", String.valueOf(movieTitles));
-        Log.i(LOG_TAG + " Movie Ratings ", String.valueOf(movieRatings));
-        Log.i(LOG_TAG + " Movie Posters ", String.valueOf(moviePosters));
+        Log.i(LOG_TAG + "Movie IDs ", String.valueOf(movieIds));
+        Log.i(LOG_TAG + "Movie Titles ", String.valueOf(movieTitles));
+        Log.i(LOG_TAG + "Movie Ratings ", String.valueOf(movieRatings));
+        Log.i(LOG_TAG + "Movie Posters ", String.valueOf(moviePosters));
 
         return null;
     }

@@ -146,6 +146,8 @@ public class RegisterMovie extends AppCompatActivity {
                     return handled;
                 }
             });
+        } else {
+            new ShowSnackBar(findViewById(R.id.register_movie), "Enter all the Data to Register Movie");
         }
         return validatedAnswer[0] > 1895;
     }
