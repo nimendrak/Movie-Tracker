@@ -22,8 +22,13 @@ public class CustomAdapter extends ArrayAdapter<String> {
     int resourceLayout;
     Context context;
 
+    // Stores all the returned movieTitles
     private List<String> movieTitles;
+
+    // Stores all the returned movieRatings
     private List<String> movieRatings;
+
+    // Stores all the returned moviePosters as link
     private List<String> moviePosters;
 
     public CustomAdapter(Context context, int resource, List<String> movieTitles, List<String> movieRatings, List<String> moviePosters) {

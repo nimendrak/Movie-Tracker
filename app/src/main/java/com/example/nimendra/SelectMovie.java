@@ -14,7 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.nimendra.util.MovieModel;
+import com.example.nimendra.db.MovieModel;
 import com.example.nimendra.db.MovieDatabase;
 
 import java.util.ArrayList;
@@ -25,12 +25,10 @@ public class SelectMovie extends AppCompatActivity {
     // Class name for Log tag
     private static final String LOG_TAG = DisplayMovies.class.getSimpleName();
 
-    private List<String> movieTitles = new ArrayList<>();
-    private List<Integer> indexOfMovies = new ArrayList<>();
-    private int movieIndex = 1;
-
     // Initialize SQLite helper class
     MovieDatabase movieDatabase;
+
+    private List<String> movieTitles = new ArrayList<>();
 
     @SuppressLint("DefaultLocale")
     @Override
@@ -41,15 +39,10 @@ public class SelectMovie extends AppCompatActivity {
         // Refers the already declared movieDatabase instance
         movieDatabase = MovieDatabase.getInstance(this);
 
-        // Movie titles list
-        // Generate movie titles list
+        // Populate movieTitles arr using the movieModelData
         List<MovieModel> movieModelData = movieDatabase.retrieveMoviesData();
         for (MovieModel m : movieModelData) {
             movieTitles.add(m.getTitle());
-
-            // Update Index of the Movies
-            indexOfMovies.add(movieIndex);
-            movieIndex++;
         }
 
         CustomAdapter customAdapter = new CustomAdapter();
@@ -58,6 +51,7 @@ public class SelectMovie extends AppCompatActivity {
 
         TextView title = findViewById(R.id.activity_title);
         final Intent intent;
+        // Based on the Extra user will be redirected either Ratings Activity or EditMovie Activity
         if (getIntent().getExtras().getBoolean("ratings")) {
             title.setText(R.string.ratings_title);
 
@@ -108,7 +102,7 @@ public class SelectMovie extends AppCompatActivity {
             TextView index = rowView.findViewById(R.id.index);
             TextView title = rowView.findViewById(R.id.title);
 
-            index.setText(String.format("%03d", indexOfMovies.get(position)));
+            index.setText(String.format("%03d", position));
             title.setText(movieTitles.get(position));
 
             return rowView;

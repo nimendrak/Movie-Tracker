@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import java.io.InputStream;
 
 /**
- * Set image for the ImageView by a given URL
+ * Set image for the ImageView by given URL
  */
 class InjectImages extends AsyncTask<String, Void, Bitmap> {
     @SuppressLint("StaticFieldLeak")

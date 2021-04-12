@@ -84,25 +84,25 @@ public class FetchData extends AsyncTask<Void, Void, Void> {
 
             // Fetch movie ratings from API
             for (String id : movieIds) {
-                // Ratings should change to TotalRating
+                // TODO : Ratings should change to TotalRating
                 String baseUrlMovieRatings = "https://imdb-api.com/en/API/Ratings/" + API_KEY + "/" + id;
                 fetchData(baseUrlMovieRatings);
 
                 JSONObject resultsRatings = new JSONObject(data);
 
-                // imDb should change to totalRating
+                // TODO : imDb should change to totalRating
                 String totalRatings = resultsRatings.getString("imDb");
                 movieRatings.add(totalRatings);
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            Log.e(LOG_TAG, e.getMessage());
         }
 
         System.out.println();
         Log.i(LOG_TAG + " Movie IDs ", String.valueOf(movieIds));
         Log.i(LOG_TAG + " Movie Titles ", String.valueOf(movieTitles));
         Log.i(LOG_TAG + " Movie Ratings ", String.valueOf(movieRatings));
-        Log.i(LOG_TAG + " Movie Posters ", String.valueOf(moviePosters.size()));
+        Log.i(LOG_TAG + " Movie Posters ", String.valueOf(moviePosters));
 
         return null;
     }
@@ -111,6 +111,7 @@ public class FetchData extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
 
+        // Populate data on the ListView using CustomAdapter
         CustomAdapter customAdapter = new CustomAdapter(context, R.layout.list_view_row_des3, movieTitles, movieRatings, moviePosters);
         ListView listView = activity.findViewById(R.id.list_view);
         listView.setAdapter(customAdapter);
@@ -120,6 +121,7 @@ public class FetchData extends AsyncTask<Void, Void, Void> {
         listView.setDivider(new GradientDrawable(GradientDrawable.Orientation.RIGHT_LEFT, colors));
         listView.setDividerHeight(2);
 
+        // When user clicks on a row, the movie poster will be enlarged
         try {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -148,8 +150,13 @@ public class FetchData extends AsyncTask<Void, Void, Void> {
         }
     }
 
+    /**
+     * Data will be fetched from the given baseURL
+     * And, holds all the JSON obj/ arr by data variable
+     * @param baseURL - API url to get preferred data
+     */
     public void fetchData(String baseURL) {
-        // Clear get data before re-populating
+        // Clear data before re-populating
         data = "";
         try {
             Uri builtURI = Uri.parse(baseURL);
@@ -165,7 +172,7 @@ public class FetchData extends AsyncTask<Void, Void, Void> {
                 data = data + line;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(LOG_TAG, e.getMessage());
         }
     }
 }

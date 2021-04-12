@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.nimendra.db.MovieDatabase;
-import com.example.nimendra.util.MovieModel;
+import com.example.nimendra.db.MovieModel;
 import com.example.nimendra.util.ShowSnackBar;
 
 public class RegisterMovie extends AppCompatActivity {

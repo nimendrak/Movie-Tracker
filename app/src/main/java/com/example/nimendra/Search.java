@@ -18,7 +18,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.nimendra.util.MovieModel;
+import com.example.nimendra.db.MovieModel;
 import com.example.nimendra.db.MovieDatabase;
 import com.example.nimendra.util.ShowSnackBar;
 
@@ -29,23 +29,16 @@ public class Search extends AppCompatActivity {
     // Class name for Log tag
     private static final String LOG_TAG = Search.class.getSimpleName();
 
+    // Initialize SQLite helper class
+    MovieDatabase movieDatabase;
+
     // Stores all the movies data
     List<MovieModel> searchResults;
 
-    // Gets input to proceed with search
     EditText getSearchChar;
-
-    // Triggers search function
     Button searchMovie;
-
-    // Custom adapter to show id, title
     CustomAdapter customAdapter;
-
-    // ListView for the Search Activity
     ListView listView;
-
-    // Initialize SQLite helper class
-    MovieDatabase movieDatabase;
 
     @SuppressLint("DefaultLocale")
     @Override
@@ -56,8 +49,13 @@ public class Search extends AppCompatActivity {
         // Refers the already declared movieDatabase instance
         movieDatabase = MovieDatabase.getInstance(this);
 
+        // Gets input to proceed with search
         getSearchChar = findViewById(R.id.search_input);
+
+        // Triggers search function
         searchMovie = findViewById(R.id.search_movie_btn);
+
+        // ListView for the Search Activity
         listView = findViewById(R.id.list_view);
 
         // If user to wants to edit movie entry, user can clicks on the movie title name and
@@ -103,6 +101,7 @@ public class Search extends AppCompatActivity {
                 new ShowSnackBar(findViewById(R.id.imdb_data), "No Search Results");
             }
 
+            // Custom adapter to show id, title
             customAdapter = new CustomAdapter();
             listView.setAdapter(customAdapter);
 

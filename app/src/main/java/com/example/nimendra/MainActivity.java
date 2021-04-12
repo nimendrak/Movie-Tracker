@@ -11,6 +11,7 @@ import com.example.nimendra.db.MovieDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
+    // Initialize SQLite helper class
     MovieDatabase movieDatabase;
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
@@ -19,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialize SQLite Database using singleton
+        // Refers the already declared movieDatabase instance
         movieDatabase = MovieDatabase.getInstance(this);
     }
 

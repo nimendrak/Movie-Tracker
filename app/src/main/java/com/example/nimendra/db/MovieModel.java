@@ -1,4 +1,4 @@
-package com.example.nimendra.util;
+package com.example.nimendra.db;
 
 /**
  * MovieModel contains all the data a single movie holds
